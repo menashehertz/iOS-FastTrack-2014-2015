@@ -51,14 +51,15 @@ class ViewController: UIViewController, ModalViewController1Protocol {
         self.performSegueWithIdentifier("DEMO2", sender: self)
     }
     
-    @IBAction func doDemo3(sender: AnyObject) {
-        let sb = UIStoryboard(name: "ModalStoryboard", bundle: nil)
-        if let vc = sb.instantiateViewControllerWithIdentifier("DEMO3") as? ModalViewController1{
-            vc.delegate = self
-            vc.titleText = "DEMO 3"
-            self.presentViewController(vc, animated: true, completion: { })
-        }
-    }
+   @IBAction func doDemo3(sender: AnyObject) {
+     let sb = UIStoryboard(name: "ModalStoryboard", bundle: nil)
+      
+     if let vc = sb.instantiateViewControllerWithIdentifier("DEMO3") as? ModalViewController1 {
+         vc.delegate = self
+         vc.titleText = "DEMO 3"
+         self.presentViewController(vc, animated: true, completion: { })
+     }
+   }
     //Call back
     func dismissWithStringData(str: String) {
       self.dismissViewControllerAnimated(true) {
