@@ -57,7 +57,7 @@ class ModalViewController1: UIViewController {
         //Set the properties of the button
         button.setTitle("Dismiss", forState: UIControlState.Normal)
         button.userInteractionEnabled = true
-        button.addTarget(self, action: Selector("doDismiss:"), forControlEvents: UIControlEvents.TouchUpInside)
+        button.addTarget(self, action: #selector(ModalViewController1.doDismiss(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         button.showsTouchWhenHighlighted = true
         
         //Add label to the view heirarchy

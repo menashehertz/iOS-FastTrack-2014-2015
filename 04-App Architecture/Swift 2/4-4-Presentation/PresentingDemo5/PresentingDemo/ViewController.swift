@@ -79,8 +79,9 @@ class ViewController: UIViewController, ModalViewController1Protocol {
     
     //Call back
     func dismissWithStringData(str: String) {
-        resultLabel.text = str
-        self.dismissViewControllerAnimated(true) { }
+      self.dismissViewControllerAnimated(true) {
+         self.resultLabel.text = str
+      }
     }
 }
 
