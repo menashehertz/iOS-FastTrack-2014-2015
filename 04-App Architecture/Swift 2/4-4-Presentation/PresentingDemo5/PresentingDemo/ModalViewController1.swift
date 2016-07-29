@@ -98,5 +98,8 @@ class ModalViewController1: UIViewController {
     @IBAction func doDismiss(sender: AnyObject) {
         delegate?.dismissWithStringData("Message from DEMO 1")
     }
+      
+   
+
 
 }

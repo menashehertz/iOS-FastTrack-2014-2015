@@ -26,6 +26,7 @@ class BlueView: UIView {
         }
 
     }
-    
+
     
 }
+
