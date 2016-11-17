@@ -217,6 +217,27 @@ let cn2 = cn1 + .real(1.0)                   //2+4i,1 => 3+4i
 cn2.realComponent()
 cn2.imagComponent()
 cn2.magnitude()
+
+//: ### Protocols
+//: Like structures and classes, **enumerated types can conform to protocols**
+protocol Movable {
+   func move()
+}
+//: Here I impose both requirement that `Vehicle` conforms to the protocol `Movable`, but code is added to make it conform
+extension Vehicle : Movable {
+   func move() {
+      switch (self) {
+      case .car(petrol: _, sizeCC: _):
+         print("Brummmm")
+      case .plane(engines: _):
+         print("Whoosh")
+      default:
+         print("What was that?")
+      }
+   }
+}
+let transport : Movable = Vehicle.plane(engines: 2)
+transport.move()
 //:
 //:
 //: [Next - References](@next)
