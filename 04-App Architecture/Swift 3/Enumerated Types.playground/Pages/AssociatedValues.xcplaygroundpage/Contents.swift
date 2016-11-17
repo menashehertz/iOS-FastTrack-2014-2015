@@ -169,7 +169,7 @@ let myOtherJourney = Vehicle.none
 //:
 //: So again, we can use `if case`. 
 //:
-//: In this first example, the associted data is ignored:
+//: In this first example, the associated data is ignored:
 if case .none = myJourney, case.none = myOtherJourney {
    //Avoiding nesting
    print("Same again huh?")

@@ -72,15 +72,15 @@ enum ToggleSwitch : String {
    }
    
 }
-//: You can initialise this enum in various ways.
-
-//: Simple assignment
+//: The enum has a number of methods. The initialisers `init()` and `init(isOn n : Bool)` are useful for safely setting the default state. You can therefore initialise this enum in various ways.
+//:
+//: 1. Simple assignment
 let toggle0 : ToggleSwitch = .off
-//: Call the initialiser
-let togglr1 = ToggleSwitch()
-//: Alternative initialiser (similar to a convenience initialiser)
+//: 2. Invoke the initialiser
+let toggle1 = ToggleSwitch()
+//: 3. Alternative initialiser (similar to a convenience initialiser)
 let toggle2 = ToggleSwitch(isOn: true)
-//: Using a raw value
+//: 4. Using a raw value
 if let toggle3 = ToggleSwitch(rawValue: "on") { //With raw values, it could fail, so the return is Optional....
    toggle3
 }
@@ -89,26 +89,29 @@ if let toggle4 = ToggleSwitch(rawValue: "ON") { //...as shown here
 } else {
    print("That failed - wrong case?")
 }
-//: Showing the default state
+//: In this example, `toggle3` and `toggle4` are Optional types (remember that initialisation with raw values can fail). `toggle3` has a wrapped value whereas `toggle4` is `nil`.
+//:
+//: The enum has a number of methods. Starting with the initialiser `init()` we first set the default state to `.off`.
 var sw1 = ToggleSwitch()
 sw1.description
-//: Obtaining the opposite state (original unmodified). Note the *value semantics* used here.
+//: We can obtain another instance with the opposite state (original unmodified). Note the value semantics and the method naming convention used here (it's an adjective, not a verb).
 let sw2 = sw1.toggled()
 sw1.description
-//: Changing the state (mutating). This is an in-place modification.
+//: We can change the state of an instance (mutating). Note again the method naming convention is to use a verb in an imperative tense. This is an in-place modification.
 sw1.toggle()
 sw1.description
-//: The custom operator & is a type-method
+//: The custom operator & is a type-method (`self` is the Type, not an instance)
 ToggleSwitch.on & ToggleSwitch.on
 ToggleSwitch.on & ToggleSwitch.off
 //:
 //: Notes:
 //:
 //: - enums are value types
-//: - emums cannot have stored properties
+//: - enums cannot have stored properties
 //: - enums can have computed properties and methods
-//: - enums can have functions / methods
-//: - a method that changes `self` must be marked as `mutating`
+//: - enums can have instance methods with access to the instance value self
+//: - a method that changes self must be marked as mutating
+//: - enums can have type methods where self refers to the type
 //:
 
 //: ## Extensions
@@ -134,7 +137,7 @@ var v1 = ToggleSwitch.on
 var v2 = v1
 //: `v2` is now a logical and independent copy of `v1`
 v2.toggle()
-//: `v2` is mutated by the `toggle` method
+//: `v2` is mutated by the `toggle` method while leaving `v1` unaffected.
 v1.description
 v2.description
 //:By default, properties of value types are not mutated from within an instance method [\[1\]](References). The `toggle` method has the keyword `mutating` to override this.
@@ -181,12 +184,17 @@ enum FemaleShoeSize {
 
    }
 }
-
+//: Let's create an instance of this type with value `uk` and associated data (size) 8.
 let shoe = FemaleShoeSize.uk(8)
-shoe
-shoe.usSize()
-shoe[1]
 shoe[0]
+shoe[1]
+shoe[2]
+//: We can calculate the equivalent size in the USA
+shoe.usSize()
+//: We can then use subscripts to see all the sizes converted to the USA system
+shoe.usSize()[1]
+shoe.usSize()[2]
+
 //: - Note: Just because this type has a subscript does not mean you can iterate over it. The following code will not compile as `FemaleShoeSize` does not conform to the `Sequence` protocol.
 //:   ````
 //:   for m in shoe {

@@ -16,10 +16,12 @@ enum SchoolMember {
    case teacher(Salutation)
    case pupil(String)
 }
+//: Now create some instances if this type
 let head = SchoolMember.teacher(.formal("Head Master"))
-let compSciTeacher = SchoolMember.teacher(.byFirstName("Dr Nick"))
-let teachingAssistant = SchoolMember.teacher(.formal("Mr. Important"))
-let class1 : [SchoolMember] = [compSciTeacher, teachingAssistant, .pupil("Claire"), .pupil("Dave"), .pupil("Sarah"), .pupil("Fred")]
+let compSciTeacher = SchoolMember.teacher(.formal("Prof Pompous"))
+let teachingAssistant1 = SchoolMember.teacher(.byFirstName("Mr. Swift"))
+let teachingAssistant2 = SchoolMember.teacher(.byFirstName("Mrs. Coder"))
+let class1 : [SchoolMember] = [compSciTeacher, teachingAssistant1, teachingAssistant2, .pupil("Stevie"), .pupil("Mick"), .pupil("Christine"), .pupil("Lindsey"), .pupil("John")]
 
 //: Simple iteration with for case - finding all pupil names
 for case .pupil(let p) in class1 {
@@ -65,32 +67,25 @@ extension Vehicle {
    
    //First a function to define what we mean by equality.
    func isEqualTo(_ other : Vehicle) -> Bool {
-      switch self {
-      case .car(let petrol, let cc):
-         if case .car(let petrol_other, let cc_other) = other, petrol_other == petrol, cc_other == cc {
-            return true
-         } else {
-            return false
-         }
-      case .plane(let engines):
-         if case .plane(let engines_other) = other, engines == engines_other {
-            return true
-         } else {
-            return false
-         }
-      case .other(let str):
-         if case .other(let str_other) = other, str == str_other {
-            return true
-         } else {
-            return false
-         }
-      case .none:
-         if case .none = other {
-            return true
-         } else {
-            return false
-         }
+      
+      switch (self, other) {
+         
+      case (.car(let p1, let c1), .car(let p2, let c2)) where (p1 == p2) && (c1 == c2):
+         return true
+         
+      case (.plane(let e1), .plane(let e2)) where e1 == e2:
+         return true
+         
+      case (.other(let s1), .other (let s2)) where s1 == s2:
+         return true
+         
+      case (.none, .none):
+         return true
+         
+      default:
+         return false
       }
+      
    }
    //Now we use an operator method on the enum type to make our code more readable
    static func == (_ lhs : Vehicle, _ rhs : Vehicle) -> Bool {

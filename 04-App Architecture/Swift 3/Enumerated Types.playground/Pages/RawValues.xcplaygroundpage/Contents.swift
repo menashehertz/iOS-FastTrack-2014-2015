@@ -13,7 +13,7 @@ enum PhoneExtension : Int {
 var v : PhoneExtension = .sales
 v.rawValue
 
-//: ### Implicity assigned raw values
+//: ### Implicitly assigned raw values
 //: In languages such as C, enumerated types actually have an implied value (auto increasing integer). The same thing can be done in Swift as follows:
 enum RankedMountains : Int {
    case everest = 1, k2, Kangchenjunga
