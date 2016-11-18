@@ -124,16 +124,17 @@ var myJourney : Vehicle = .none
 //: We cannot use the `==` operator because `Vehicle` includes cases with associated data. Instead we can use `if case` pattern matching to make comparisons.
 //:
 //: In the following example, the associated data is disregarded for the purposes of comparison:
-if case .other(_) = myJourney {
-   print("Somewhere nice?")
+myJourney = .plane(engines: 2)
+if case .plane(_) = myJourney {
+   print("Flying somewhere nice?")
 } else {
-   print("Ok, it's a secret?")
+   print("Ok, none of my business I suppose")
 }
 //: or simply drop the parenthesis
-if case .other = myJourney {
-   print("Somewhere nice?")
+if case .plane = myJourney {
+   print("Flying somewhere nice?")
 } else {
-   print("Ok, it's a secret?")
+   print("Ok, none of my business I suppose")
 }
 //: Consider the following:
 myJourney = .other("Pogo Stick")
@@ -228,20 +229,17 @@ default:
 //:      }
 //: ````
 
-//: ### More pattern matching with `switch case`
+//: ### More pattern matching - `switch case`
 //:
-//: There is a lot you can do with pattern matching in Swift. So much so that it probably deserves its own tutorial. For now, let's consider some examples with switch case:
-commute2work = .car(petrol: true, sizeCC: 1400)
+//: There is a lot you can do with pattern matching in Swift. So much so that it probably deserves its own tutorial. However, for now, let's consider some examples with switch case:
+commute2work = .car(petrol: true, sizeCC: 2500)
 switch commute2work {
 case .car(petrol: let petrol, sizeCC: let cc):
    //If it matches the .car case, then bind petrol and cc to the associated data
    //Note the labels are optional
-   if petrol {
-      print("Dont forget to get petrol (gasoline)")
-   } else {
-      print("Remember! Don't put petrol(gasoline) in a Diesel!")
+   if petrol && (cc > 1900) {
+      print("Dont forget to get petrol (gasoline) - you're going to need it with a \(cc) engine!")
    }
-   print("That's \(cc) of raw power")
 case .plane(let E):
    print("Thats a plane with \(E) engines")
 case .other(let s):
