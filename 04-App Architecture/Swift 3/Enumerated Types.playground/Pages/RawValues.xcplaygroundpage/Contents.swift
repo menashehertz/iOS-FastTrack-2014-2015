@@ -67,6 +67,11 @@ if let dn = PhoneExtension(rawValue: 1334) {
 } else {
    print("That did not")
 }
+if let rocker = BandMember(rawValue: "Ozzy") {
+   print("Bats be nervous")
+} else {
+   print("Wrong band")
+}
 //:
 //: ----
 //: [Next - Associated Values](@next)

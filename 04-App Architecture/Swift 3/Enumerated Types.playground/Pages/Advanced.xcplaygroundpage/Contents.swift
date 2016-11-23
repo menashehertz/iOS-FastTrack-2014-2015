@@ -236,8 +236,31 @@ extension Vehicle : Movable {
       }
    }
 }
+//: Let's now create a constant of type `Movable`
 let transport : Movable = Vehicle.plane(engines: 2)
 transport.move()
+//: Without a type cast, the only method available is `move()`.
+//: What is interesting is when we interrogate the type
+type(of: transport)
+if transport is Vehicle {
+   "Yes"
+}
+//: It seems we know the concrete type.
+//: If we look at this next example, the type is `Any`. By equating it to an instance of Vehicle, we can also test for type conformance.
+var something : Any = transport
+if something is Movable {
+   "Yes again"
+}
+//: Indeed it comes up positive.
+//: For a type `Any`, we can re-assign to another type and re-test
+something = SchoolMember.pupil("Fred")
+type(of: something)
+if something is Movable {
+   "Yes again"
+} else {
+   "Now for something completely different"
+}
+//: The variable no longer conforms to the protocol.
 //:
 //:
 //: [Next - References](@next)
