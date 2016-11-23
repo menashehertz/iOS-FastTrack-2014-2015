@@ -193,6 +193,18 @@ if case (.none, .none) = (j1, j2) {
 //: In this second example, associated data is included in the comparison:
 if case .none = j1, case .none = j2 {
    print("Both none")
+} else if case .other(let s1) = j1, case .other(let s2) = j2, s1 == s2 {
+   print("Both other")
+} else if case .plane(let e1) = j1, case .plane(let e2) = j2, e1 == e2 {
+   print("Both planes")
+} else if case .car(let p1, let c1) = j1, case .car(let p2, let c2) = j2, p1 == p2 && c1 == c2 {
+   print("Both cars")
+} else {
+   print("Different")
+}
+//: Or more concise:
+if case .none = j1, case .none = j2 {
+   print("Both none")
 } else if case .other(let s) = j1, case .other(s) = j2 {
    print("Both other")
 } else if case .plane(let e) = j1, case .plane(e) = j2 {
