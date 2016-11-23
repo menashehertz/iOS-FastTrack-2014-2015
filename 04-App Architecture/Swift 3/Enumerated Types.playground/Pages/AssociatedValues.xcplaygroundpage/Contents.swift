@@ -145,7 +145,7 @@ if case .other("Pogo Stick") = myJourney {
 //: 
 //: - Note: It is important to contrast `if` and `if case`
 
-//: **Comparing two enumerated types**
+//: **Multiple Conditions**
 //:
 //: Again, as stated above, for enumerated types without associated data, you can compare using conditional operators such as `==` or `!=` as shown below:
 enum BandMember : String {
@@ -161,7 +161,8 @@ if track1 != track2 {
    print("That's no harmony")
 }
 //: However, you cannot use conditional operators for enumerated types with associated data.
-let myOtherJourney = Vehicle.none
+myJourney = .other("Pogo Stick")
+var myOtherJourney = Vehicle.none
 //:
 // This does not compile
 // if (myJourney == myOtherJourney) {
@@ -171,39 +172,42 @@ let myOtherJourney = Vehicle.none
 //: So again, we can use `if case`. 
 //:
 //: In this first example, the associated data is ignored:
-if case .none = myJourney, case.none = myOtherJourney {
-   //Avoiding nesting
-   print("Same again huh?")
+let j1 = Vehicle.plane(engines: 2)
+var j2 = Vehicle.plane(engines: 4)
+//j2 = Vehicle.other("Flying Carpet")
+if case (.none, .none) = (j1, j2) {
+   print("Both none")
+} else if case (.other, .other) = (j1, j2) {
+   print("Both other")
+} else if case (.plane, .plane) = (j1, j2) {
+   print("Both planes")
+} else if case (.car, .car) = (j1, j2) {
+   print("Both cars")
+} else {
+   print("Different")
 }
+//: - Experiment: Uncomment the line above that reads j2 = .other("Flying carpet")
+//:
 //: If by equality you wish to include the values of the associated data, then you can extract and test it alongside the case.
 //:
 //: In this second example, associated data is included in the comparison:
-let j1 = Vehicle.plane(engines: 2)
-let j2 = Vehicle.plane(engines: 4)
-
-if case .plane(let e1) = j1, case .plane(let e2) = j2, e1 == e2  {
-   print("Those could have been the same journey")
+if case .none = j1, case .none = j2 {
+   print("Both none")
+} else if case .other(let s) = j1, case .other(s) = j2 {
+   print("Both other")
+} else if case .plane(let e) = j1, case .plane(e) = j2 {
+   print("Both planes")
+} else if case .car(let p, let c) = j1, case .car(p, c) = j2 {
+   print("Both cars")
 } else {
-   print("Surely different journeys?")
+   print("Different")
 }
 //: In words, all the following patterns need to be matched:
 //:
 //: - if `j1` is *matched* to the `.plane` case then `e1` is bound to the associated data in `j1`
-//: - if `j2` is *matched* to the `.plane` case then `e2` is bound to the associated data in `j2
-//: - `e1` is equal to `e2`
+//: - if `j2` is *matched* to the `.plane` with associated data `e2` matching the associated data in `j2
 //:
 //: - Note: `if`, `while` and `guard` statements use comma separated lists instead of `where` clauses
-//:
-//: A slightly more concise way:
-if case .plane(let e1) = j1, case .plane(e1) = j2  {
-   print("Those could have been the same journey")
-} else {
-   print("Surely different journeys?")
-}
-//: Very similar but more concise:
-//:
-//: - `e1` is bound to the associated data in `j1` *if it matches* the `.plane` case (note this involves a match and a bind)
-//: - `j2` matches the `.plane` case and the associated data matches the value in `e1` (match only)
 //:
 //: - Experiment: try the following
 //: - *Change the associated data so that `j1` and `j2` are equal*
@@ -213,10 +217,16 @@ if case .plane(let e1) = j1, case .plane(e1) = j2  {
 switch (j1,j2) {
 case (.plane(let e1), .plane(let e2)) where e1 == e2:
    print("Probably the same journey")
+case (.car(let p1, let c1), .car(let p2, let c2)) where p1 == p2 && c1 == c2:
+   print("Maybe the same car journey")
+case (.other(let s1), .other(let s2)) where s1 == s2:
+   print("Might be the same journey")
+case (.none, .none):
+   print("Just stayed home")
 default:
-   print("Surely a different journey")
+   print("Not the same journey")
 }
-//: - Note: 
+//: - Note:
 //:   - Associated data can bring ambiguity when comparing enumerated types. [Later](Advanced) we see how a custom `==` operator could be written to define equality for a given enumerated type with associated data.
 //:
 //:   - Unlike the `if-case`, you cannot do the following:
@@ -311,26 +321,26 @@ doJourney(mode: .plane(engines: 2))
 //: Treating an Optional as an enumerated type, we access it in various ways:
 var optA : Int? = 2
 //: Of course, we have the very concise `if let`
-if let uu = optA {
-   print("value is \(uu)")
+if let aVal = optA {
+   print("value is \(aVal)")
 }
 //: Treating as an enumerated type, the syntax is no different to any other enumerated type:
 if case .none = optA {
-   print("Nothing to see here")
+   print("Nothing here")
 }
-if case .some(let u) = optA {
-   print("Yes, something in there... a \(u) I think")
+if case .some(let aVal) = optA {
+   print("value is \(aVal)")
 }
 //: The *optional pattern* can be used
-if case let u? = optA {
-   print("associated data = \(u)")
+if case let aVal? = optA {
+   print("value is \(aVal)")
 }
 //: Alternatively, we can use switch
 switch optA {
 case .none:
    print("Nothing here")
-case .some(let u):
-   print("There is data \(u) hiding in there!")
+case .some(let aVal):
+   print("value is \(aVal)")
 }
 
 //: ### Pattern matching with `for-case-in`
