@@ -54,10 +54,10 @@ class ViewController: UIViewController {
     
     
     //Return a UITableViewCell (table row) - I will use a stock item, but typically you would make your own
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell {
         
         //Construct a cell (not the most efficient method)
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
         
         //See here how Optional Chaining is used to conditionally set a property if it is not nil
         cell.textLabel?.text = self.arrayOfThings[indexPath.row]
@@ -65,14 +65,14 @@ class ViewController: UIViewController {
     }
     
     //Call back when a user taps on a row in a given section.
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
 
         //We only have one section, so use indexPath.row to dereference the array
         let selectedString = self.arrayOfThings[indexPath.row]
         print("You picked \(selectedString)")
         
         //Animate the deselection
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
