@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ModalViewController1Protocol : class {
-    func dismissWithStringData(str : String)
+    func dismissWithStringData(_ str : String)
 }
 
 class ModalViewController1: UIViewController {
@@ -40,24 +40,24 @@ class ModalViewController1: UIViewController {
         }
         
         //Instantiate a view
-        self.view = UIView(frame: UIScreen.mainScreen().bounds)
-        self.view.backgroundColor = UIColor.lightGrayColor()
+        self.view = UIView(frame: UIScreen.main.bounds)
+        self.view.backgroundColor = UIColor.lightGray
         
         //Instantiate the label (no position specified)
         let label = UILabel()
     
         //Instantiate the button
-        let button = UIButton(type: UIButtonType.RoundedRect)
+        let button = UIButton(type: UIButtonType.roundedRect)
         
         //Set the properties of the label
         label.text = "Demo 5"       //Set property
-        label.textAlignment = NSTextAlignment.Center
+        label.textAlignment = NSTextAlignment.center
         self.titleLabel = label     //Setup outlet
         
         //Set the properties of the button
-        button.setTitle("Dismiss", forState: UIControlState.Normal)
-        button.userInteractionEnabled = true
-        button.addTarget(self, action: #selector(ModalViewController1.doDismiss(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        button.setTitle("Dismiss", for: UIControlState())
+        button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(ModalViewController1.doDismiss(_:)), for: UIControlEvents.touchUpInside)
         button.showsTouchWhenHighlighted = true
         
         //Add label to the view heirarchy
@@ -65,10 +65,10 @@ class ModalViewController1: UIViewController {
         self.view.addSubview(button)
         
         //Add constraints (center of the view)
-        let c1 = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0.0)
-        let c2 = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: 0.0)
-        let c3 = NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: label, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: 60.0)
-        let c4 = NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: label, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0.0)
+        let c1 = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 0.0)
+        let c2 = NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0.0)
+        let c3 = NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: label, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 60.0)
+        let c4 = NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: label, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 0.0)
 
         label.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -95,7 +95,7 @@ class ModalViewController1: UIViewController {
     }
     */
 
-    @IBAction func doDismiss(sender: AnyObject) {
+    @IBAction func doDismiss(_ sender: AnyObject) {
         delegate?.dismissWithStringData("Message from DEMO 1")
     }
       
