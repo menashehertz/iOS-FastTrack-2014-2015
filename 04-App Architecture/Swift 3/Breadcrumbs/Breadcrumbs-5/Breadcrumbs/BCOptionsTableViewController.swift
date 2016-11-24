@@ -96,24 +96,24 @@ class BCOptionsTableViewController: UITableViewController {
     
     // MARK: - Actions
     
-    @IBAction func doBackgroundUpdateSwitch(sender: AnyObject) {
-        print("\(__FUNCTION__)")
+    @IBAction func doBackgroundUpdateSwitch(_ sender: AnyObject) {
+        print("\(#function)")
     }
     
-    @IBAction func doHeadingUpSwitch(sender: AnyObject) {
-        print("\(__FUNCTION__)")
+    @IBAction func doHeadingUpSwitch(_ sender: AnyObject) {
+        print("\(#function)")
     }
     
-    @IBAction func doShowTrafficSwitch(sender: AnyObject) {
-        print("\(__FUNCTION__)")
+    @IBAction func doShowTrafficSwitch(_ sender: AnyObject) {
+        print("\(#function)")
     }
     
-    @IBAction func doDistanceSliderChanged(sender: AnyObject) {
-        print("\(__FUNCTION__)")
+    @IBAction func doDistanceSliderChanged(_ sender: AnyObject) {
+        print("\(#function)")
     }
     
-    @IBAction func doGPSPrecisionSliderChanged(sender: AnyObject) {
-        print("\(__FUNCTION__)")
+    @IBAction func doGPSPrecisionSliderChanged(_ sender: AnyObject) {
+        print("\(#function)")
     }
 
 }
