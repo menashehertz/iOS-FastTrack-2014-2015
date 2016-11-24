@@ -1,6 +1,6 @@
 //: [Previous](@previous)
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 //: ![Closures](Banner.jpg)
 
 //: ## Sychronous and Asychronous callbacks
@@ -16,9 +16,10 @@ let rad2deg = { $0 * 180.0 / M_PI }
 //: In this example, a closure is listed as the last parameter of a higher-order function. This parameter is a closure with one parameter.
 //: The objective of the higher order function is to iterate "up hill" to find the nearest peak (see lecture for details).
 
-func hillClimbWithInitialValue(var x0 : Double, 𝛌 : Double, maxIterations: Int, fn : (Double) -> Double ) -> (x: Double, y : Double)? {
+func hillClimbWithInitialValue(_ x0 : Double, 𝛌 : Double, maxIterations: Int, fn : @escaping (Double) -> Double ) -> (x: Double, y : Double)? {
    
-   func estimateSlope(x : Double) -> Double {
+   var x0 = x0
+   func estimateSlope(_ x : Double) -> Double {
       let 𝛅 = 1e-6
       let 𝛅2 = 2*𝛅
       return ( fn(x+𝛅)-fn(x-𝛅) ) / 𝛅2
@@ -35,7 +36,7 @@ func hillClimbWithInitialValue(var x0 : Double, 𝛌 : Double, maxIterations: In
       slope = estimateSlope(x0)
       
       //Update count
-      iteration++
+      iteration += 1
       
       if iteration == maxIterations {
          return nil
@@ -61,35 +62,35 @@ if let p = peak {
 
 //: ### Run on a seperate thread
 //: For a more precise answer, this algorithm will take too much time on the main thread.
-//: We can use the foundation classes `NSOperationQueue` and `NSBlockOperation` to run the function on another thread.
+//: We can use the foundation classes `OperationQueue` and `BlockOperation` to run the function on another thread.
 //: *Note* for those interested in concurrency - the function shares no mutable state (no globals or `inout` parameters) and to help prevent races, all parameters are value types (indepednent copies) except for the call-back (which is a reference type)
 
 //: The following is needed to allow the execution of the playground to continue beyond the scope of the higher-order function.
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
-//: Create a `NSBlockOperation` - the higher-order initialiser function takes a single parameters - a parameterless function of type `()->Void`
+//: Create a `BlockOperation` - the higher-order initialiser function takes a single parameters - a parameterless function of type `()->Void`
 //:
 //: Note the use of a trailing closures to keep the code neater. This is possible because the closure is always the last parameter.
-let P = NSBlockOperation(){
+let P = BlockOperation(){
    //Invoke the function on a thread other than the main
    let res = hillClimbWithInitialValue(0.0, 𝛌: 0.01, maxIterations: 10000){sin($0) }
    //Once complete, create another operation only this time on the main thread. Some functions and UI updates
    //should only be done on the main thread.
-   let Qres = NSBlockOperation(){
+   let Qres = BlockOperation(){
       if let p = res {
          print("Peak of value \(p.y) found at \(rad2deg(p.x)) degrees",separator: "")
-         XCPlaygroundPage.currentPage.captureValue(rad2deg(p.x), withIdentifier: "Angle (degrees)")
-         XCPlaygroundPage.currentPage.captureValue(p.y, withIdentifier: "Peak value")
+         let deg = rad2deg(p.x)
+         deg
+         p.y
       } else {
          print("Did not converge")
-         XCPlaygroundPage.currentPage.captureValue("Did not converge", withIdentifier: "Peak value")
       }
    }
-   NSOperationQueue.mainQueue().addOperation(Qres)
+   OperationQueue.main.addOperation(Qres)
 }
 
 //: Create a queue (on another thread)
-let Q = NSOperationQueue()
+let Q = OperationQueue()
 //: Add the operation to that queue (it will run automatically)
 Q.addOperation(P)
 

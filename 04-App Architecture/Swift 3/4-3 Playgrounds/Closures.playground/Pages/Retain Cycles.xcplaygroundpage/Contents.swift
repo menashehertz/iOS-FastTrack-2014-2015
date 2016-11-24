@@ -1,7 +1,7 @@
 //: [Previous](@previous)
 
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 //: ![Closures](Banner.jpg)
 
 //: ## Retain Cycles and Capture Lists
@@ -56,7 +56,7 @@ class Object2 {
    deinit {
       print("deinit \(_id)",separator: "", terminator: "")
       if _id == "Object 2" {
-         XCPlaygroundPage.currentPage.captureValue(_id, withIdentifier: "Object 2 is deallocated")         
+         _id
       }
    }
    
@@ -139,12 +139,12 @@ protocol CanOpenATin : class {
 
 //: Pet class - has a reverse reference back to the owner. This class does not instantiate the owner, so therefore should not noramlly maintain a strong reference to its owner.
 class Pet {
-   let timeLastFed = NSDate()
+   let timeLastFed = Date()
    let name : String
    var isHungry : Bool {
       get {
-         let hrsElapsed = NSDate().timeIntervalSinceDate(timeLastFed) / 3600.0
-         return hrsElapsed > 12
+         let hrsElapsed = Date().timeIntervalSince(timeLastFed) / 3600.0
+         return hrsElapsed > 12.0
       }
    }
    
@@ -178,13 +178,13 @@ class Owner : CanOpenATin {
    init(withPet pet : Pet) {
       onlyPet = pet
       pet.owner = self
-      XCPlaygroundPage.currentPage.captureValue(pet.name, withIdentifier: "Pet Name")
+      pet.name
    }
    
    //This should be called once there are no more strong references to this instance
    deinit {
       print("Deallocating", terminator: "")
-      XCPlaygroundPage.currentPage.captureValue(onlyPet.name, withIdentifier: "Owner for the following pet is being deallocated")
+      onlyPet.name
    }
 }
 
@@ -196,7 +196,7 @@ let dog = Pet(name: "Chewy")
 var owner = Owner(withPet: cat)
 
 //: Double check everything is hooked up
-if let opened = cat.owner?.openPetFoodTin() where opened == true {
+if let opened = cat.owner?.openPetFoodTin(), opened == true {
    print("Purrrrrr",separator: "", terminator: "")
 }
 
@@ -247,7 +247,7 @@ class Person {
    //This should run when deallocated
    deinit {
       print("Deallocating person \(lastName)", terminator: "")
-      XCPlaygroundPage.currentPage.captureValue(self.lastName, withIdentifier: "Instance being deallocated")
+      self.lastName
    }
    
 }

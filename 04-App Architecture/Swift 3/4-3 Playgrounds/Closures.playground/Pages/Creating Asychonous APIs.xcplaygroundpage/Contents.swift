@@ -1,7 +1,7 @@
 //: [Previous](@previous)
 
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 //: ![Closures](Banner.jpg)
 
 //: ## Creating an Asychronous API
@@ -10,7 +10,7 @@ import XCPlayground
 //: provides an asychonrous call-back **on the main thread**.
 
 //: The following is needed to allow the execution of the playground to continue beyond the scope of the higher-order function.
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 
 let deg2rad = { $0*M_PI/180.0 }
@@ -20,12 +20,12 @@ let rad2deg = { $0 * 180.0 / M_PI }
 //: This call-back function is passed as the last parameter. This parameter is a function with one parameter.
 //: The objective of the higher order function is to iterate "up hill" to find the nearest peak
 typealias SOLN = (x: Double, y : Double)
-func hillClimbWithInitialValue(var x0 : Double, 𝛌 : Double, maxIterations: Int, fn : Double->Double, completion: SOLN?->Void) {
-   
+func hillClimbWithInitialValue(_ xx : Double, 𝛌 : Double, maxIterations: Int, fn : @escaping (Double)->Double, completion: @escaping (SOLN?)->Void) {
+   var x0 = xx
    //Encapsualte code in a parameterless closure
    let P1 = {
       
-      func estimateSlope(x : Double) -> Double {
+      func estimateSlope(_ x : Double) -> Double {
          let 𝛅 = 1e-6
          let 𝛅2 = 2*𝛅
          return ( fn(x+𝛅)-fn(x-𝛅) ) / 𝛅2
@@ -43,7 +43,7 @@ func hillClimbWithInitialValue(var x0 : Double, 𝛌 : Double, maxIterations: In
          slope = estimateSlope(x0)
          
          //Update count
-         iteration++
+         iteration += 1
       }
       
       //Create an Operation to perform a callback passing the result as a parameter
@@ -59,16 +59,16 @@ func hillClimbWithInitialValue(var x0 : Double, 𝛌 : Double, maxIterations: In
             completion( nil )
          }
          //This is to stop the playground running indefinately
-         XCPlaygroundPage.currentPage.finishExecution()
+         PlaygroundPage.current.finishExecution()
       }
       
       //Perform call back on main thread
-      NSOperationQueue.mainQueue().addOperationWithBlock(P2)   //P2 will be a copy
+      OperationQueue.main.addOperation(P2)   //P2 will be a copy
       
    } //end of closure
 
    //Perform operation on seperate thread
-   NSOperationQueue().addOperationWithBlock(P1)
+   OperationQueue().addOperation(P1)
 }
 
 //: ### Invoke asychronous function
@@ -76,7 +76,7 @@ func hillClimbWithInitialValue(var x0 : Double, 𝛌 : Double, maxIterations: In
 
 //: First, define two closures:
 //: * The function being searched
-let fcn : Double->Double = { sin($0) }
+let fcn : (Double)->Double = { sin($0) }
 //: * A callback closure (which is performed in the runloop of the main thread)
 let complete = { (solution : SOLN?) -> Void in
    print("Completed: \(NSDate())", separator: "", terminator: "")

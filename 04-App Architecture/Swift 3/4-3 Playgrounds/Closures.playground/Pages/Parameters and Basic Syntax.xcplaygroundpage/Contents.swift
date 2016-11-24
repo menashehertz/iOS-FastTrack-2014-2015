@@ -4,9 +4,10 @@ import UIKit
 //: # Closure Syntax
 //: ## From the Lecture "Closures"
 //:
-//: For Xcode 7
+//: For Xcode 8
 //:
 //: First created 7th December 2015
+//: Updated Nov 2016
 
 //: ## Closure Syntax and Type Inference"
 
@@ -41,7 +42,7 @@ let divide_closure = { (n : Int, d: Int) -> Double? in
 divide_closure(12, 3)
 
 //: The type is the same as the function `(Int,Int)->Double?`. In fact you can interrogate the type (handy tip!)
-divide_closure.dynamicType
+type(of: divide_closure)
 
 //: Where the code is not reused, you can use in-place evaluation. Note how the closures is both defined and invoked in one place. **Useful for initialisation** of variables and constants
 let y  = { (n : Int, d: Int) -> Double? in
@@ -71,7 +72,7 @@ let cuboidVolumeClosure = { (w : Double, h: Double, d: Double) -> Double in
 cuboidVolumeClosure(2.0,3.0,4.0)
 
 //: They have the same type - to prove it, we can add both to a typed array
-typealias threeDVolume = ((width:Double, height:Double, depth:Double) -> Double)
+typealias threeDVolume = ( (_ width:Double, _ height:Double, _ depth:Double) -> Double)
 var closureArray : [threeDVolume] = []
 closureArray.append(cuboidVolume)
 closureArray.append(cuboidVolumeClosure)
@@ -87,13 +88,13 @@ closureArray.append({ (w : Double, h: Double, d: Double) in w*h*d} )
 closureArray.append({$0*$1*$2})
 //: Creating an array of closures might seem strange, but again, we treat closure/function types like any other. To prove it works, we can evaluate as follows:
 if let c = closureArray.last {
-   c(width:2.0, height:3.0, depth:4.0)
+   c(2.0, 3.0, 4.0)
 }
 //: More concisely
-closureArray.last?(width:2.0, height:3.0, depth:4.0)
+closureArray.last?(2.0, 3.0, 4.0)
 
 //: ### Example - no external parameter names
-func cuboidVolumeWHD(width:Double, _ height:Double, _ depth:Double) -> Double {
+func cuboidVolumeWHD(_ width:Double, _ height:Double, _ depth:Double) -> Double {
    return width * height * depth
 }
 //: For the closure, you don't get external parameter labels unless you specify them - *no need to supress parameter labels*
@@ -116,8 +117,8 @@ closureArray.append(cuboidVolumeWHD)
 closureArray.append(cuboidVolumeWHDClosure)
 
 //: Another way to inspect type
-cuboidVolume.dynamicType
-cuboidVolumeWHD.dynamicType
+type(of: cuboidVolume)
+type(of: cuboidVolumeWHD)
 
 //: ## Solution to tasks in lecture
 
@@ -134,7 +135,7 @@ let vol1 = { (w:Double, h:Double, d:Double) -> Double in
 vol(width: 2.0, height: 3.0, depth: 4.0) - vol1(2.0, 3.0, 4.0)
 
 //: Convert the following to a closure
-func cuboidVolumeWithDimensions(w:Double, _ h:Double, _ d:Double) -> Double {
+func cuboidVolumeWithDimensions(_ w:Double, _ h:Double, _ d:Double) -> Double {
    return w * h * d
 }
 
