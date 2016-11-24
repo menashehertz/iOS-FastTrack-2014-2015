@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ViewController: UIViewController {
+public class ViewController: UIViewController, UIPopoverPresentationControllerDelegate {
 
    //Strong outlets
    var responseLabel: UILabel!
@@ -17,6 +17,9 @@ public class ViewController: UIViewController {
    
    public var storeNewValue : ((Int) -> Void)?
    public var finished : ((Void) -> Void)?
+   
+   //Private model data - used for displaying in a pop over
+   var data = [String]()
    
    override public func viewDidLoad() {
       super.viewDidLoad()
@@ -31,26 +34,53 @@ public class ViewController: UIViewController {
 
    @IBAction func doSelectionChanged(_ sender: Any) {
       let sel : Int = 1 + self.segment.selectedSegmentIndex
+      let strResult : String
       
       switch(sel) {
       case 1:
-         self.responseLabel.text = "Disagree"
+         strResult = "Disagree"
       case 2:
-         self.responseLabel.text = "Slightly Disagree"
+         strResult = "Slightly Disagree"
       case 3:
-         self.responseLabel.text = "Slightly Agree"
+         strResult = "Slightly Agree"
       case 4:
-         self.responseLabel.text = "Agree"
+         strResult = "Agree"
       default:
-         self.responseLabel.text = "Error"
+         strResult = "Error"
       }
       
+      //Update model
+      data.append(strResult)
+      
+      //Update UI
+      self.responseLabel.text = strResult
+      
+      //Send back to playground
       storeNewValue?(sel)
    }
    
    @IBAction func doFinished(_ sender: Any) {
       self.responseLabel.text = "?"
-      finished?()
+      let tvc = TableViewController()
+      tvc.modalPresentationStyle = .popover
+      tvc.data = data
+      
+      //Get hold of and configure the popOverPresentationController
+      let pop = tvc.popoverPresentationController
+      pop?.sourceView = self.button
+      pop?.sourceRect = self.button.bounds
+      pop?.delegate = self
+      
+      //Present popover controller
+      self.present(tvc, animated: true, completion: { [unowned self] in
+         self.finished?() //Message playground
+         self.data.removeAll() //Flush cache
+      })
+   }
+   
+   //Prevent adaptivity (otherwise the popover fills the screen)
+   public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+      return UIModalPresentationStyle.none
    }
    
    public override func loadView() {
