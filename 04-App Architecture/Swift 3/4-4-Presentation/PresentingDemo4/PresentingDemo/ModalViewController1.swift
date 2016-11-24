@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ModalViewController1Protocol : class {
-    func dismissWithStringData(str : String)
+    func dismissWithStringData(_ str : String)
 }
 
 class ModalViewController1: UIViewController {
@@ -42,7 +42,7 @@ class ModalViewController1: UIViewController {
     }
     */
 
-    @IBAction func doDismiss(sender: AnyObject) {
+    @IBAction func doDismiss(_ sender: AnyObject) {
         delegate?.dismissWithStringData("Message from DEMO 1")
     }
 
