@@ -1,7 +1,7 @@
 //: [Previous](@previous)
 
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 //: ![Closures](Banner.jpg)
 
 //: ## Capturing and Currying
@@ -10,11 +10,12 @@ import XCPlayground
 
 //: ### Capturing from enclosing scope - parameters and locals
 
-typealias DoubleTransform = Double -> Double
+typealias DoubleTransform = (Double) -> Double
 
 //: This closure encasulates the captured variable `sum`
-let acc = { (var sum : Double) -> DoubleTransform in
+let acc = { ( s : Double) -> DoubleTransform in
    // Return the single-parameter closure - The `return` could be dropped of course
+   var sum = s
    return {
       sum += $0   // Closure captures variable sum
       return sum  
@@ -31,7 +32,7 @@ let y = acc(8.0)
 //: Any closure with `N` parameters can be broken down into `N` closures with 1 parameter.
 //: This follows a process of "capture and return", just as we did with functions.
 
-typealias IntTx = Int -> Int    //Function type that takes an Int parameter, and returns an Int
+typealias IntTx = (Int) -> Int    //Function type that takes an Int parameter, and returns an Int
 
 //: Outer closure provides the first argument - this is captured by the next level of nesting
 let curried = {( num1 : Int) ->  IntTx in
@@ -73,14 +74,14 @@ let tables = symbols.map(){ (row : Int) -> [Int] in
 //: Of course, we can do the same with two for-loops, but this is much more concise. You may prefer two for-loops of course.
 
 //: #### Example used in the Functions lecture
-typealias T1 = Double -> Double
-typealias T2 = Double -> T1
+typealias T1 = (Double) -> Double
+typealias T2 = (Double) -> T1
 
 //: The original function used
-func f1(m : Double) -> T2 {
-   func f2(x : Double) -> T1 {
+func f1(_ m : Double) -> T2 {
+   func f2(_ x : Double) -> T1 {
       let prod = m*x
-      func f3(c : Double) -> Double {
+      func f3(_ c : Double) -> Double {
          return prod+c
       }
       return f3
@@ -113,21 +114,21 @@ c1(10)(2)(5)
 //: We can simplify of course
 //:
 //: Starting with inferred returns
-//let c1 = { (m : Double)-> T2 in
-//   { (x : Double) -> T1 in
-//      { (c : Double) -> Double in m*x+c }
+//let c1 = { (_ m : Double)-> T2 in
+//   { (_ x : Double) -> T1 in
+//      { (_ c : Double) -> Double in m*x+c }
 //   }
 //}
 //:
 //: Now the return types - these can be inferred
-//let c1 = { (m : Double) in
-//   { (x : Double) in
-//      { (c : Double) in m*x+c }
+//let c1 = { (_ m : Double) in
+//   { (_ x : Double) in
+//      { (_ c : Double) in m*x+c }
 //   }
 //}
 //:
 //: Shorthand notation can be used on the most inner function
-//let c1 = { (m : Double) in
+//let c1 = { (_ m : Double) in
 //   { (x : Double) in
 //      { m*x+$0 }
 //   }
@@ -135,14 +136,14 @@ c1(10)(2)(5)
 //:
 //: Parameter types can be inferred.
 //: Remember - because this is a type-strict language, only a Double can be multiplied with a Double, so the type of x is implied given the type of m is known
-//let c2 = { (m : Double) in
+//let c2 = { (_ m : Double) in
 //   { x in
 //      { m*x+$0 }
 //   }
 //}
 
 //: We can now write on one line.
-let c2 = { (m : Double) in { x in { m*x+$0 } } }
+let c2 = { (_ m : Double) in { x in { m*x+$0 } } }
 
 c2(10)
 c2(10)(2)

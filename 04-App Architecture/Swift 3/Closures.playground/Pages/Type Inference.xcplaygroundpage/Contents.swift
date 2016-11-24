@@ -1,6 +1,6 @@
 //: [Previous](@previous)
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 //: ![Closures](Banner.jpg)
 
 //: ## Type Interence
@@ -17,34 +17,35 @@ import XCPlayground
 
 //:Consider the following closure
 let tm = { () -> String in
-   let date = NSDate()
-   let fmt = NSDateFormatter()
+   let date = Date()
+   let fmt = DateFormatter()
    fmt.dateFormat = "h:mm a"
-   return fmt.stringFromDate(date)
+   return fmt.string(from: date)
 }
+
 //: Here the type of expression `tm` is inferred from the closure type. In this case, it is `() -> String`.
-tm.dynamicType
+type(of: tm)
 //: We can evaluate and see the output (type `String`).
 tm()
 //: Equally, the value type can be inferred from the type of the *expression* (left hand side).
 let tm2 : () -> String  = {
-   let date = NSDate()
-   let fmt = NSDateFormatter()
+   let date = Date()
+   let fmt = DateFormatter()
    fmt.dateFormat = "h:mm a"
-   return fmt.stringFromDate(date)
+   return fmt.string(from: date)
 }
 //: Note how there is no need to specify the closure parameter or return type in the closure.
-tm2.dynamicType
+type(of: tm2)
 //: Contrast this with the following example.
 //: * **note** the parenthesis on the end
 let theTimeNow : String  = {
-   let date = NSDate()
-   let fmt = NSDateFormatter()
+   let date = Date()
+   let fmt = DateFormatter()
    fmt.dateFormat = "h:mm a"
-   return fmt.stringFromDate(date)
+   return fmt.string(from: date)
 }()
 
-theTimeNow.dynamicType
+type(of: theTimeNow)
 //: The return type here is `String` as the closure is evaluated in place.
 //: This technique is very useful for initialisation of constants and variables
 //:
@@ -116,7 +117,7 @@ let area2 = { 3.14*$0*$0 }
 typealias Point2D = (x: Double, y: Double)    //Type Point is a tuple (with labels)
 
 //: Now I create another new type `DistanceMetric`. This type takes a point argument and returns a `Double`. By default this would be the distance from the origin (0,0).
-typealias DistanceMetric = Point2D -> Double
+typealias DistanceMetric = (Point2D) -> Double
 
 //: Previously I wrote some functions for different distance metrics, measuring the distance of a 2D point from the origin (0,0).
 
@@ -131,7 +132,7 @@ func maxAbsolute(p : Point2D) -> Double {
 }
 
 //: The following **higher-order function** calculates the 'distance' *between* two points using a provided `DistanceMetric`. Note that this function contains the common code for the different methods used. Note the third *and last* parameter is a function / closure. It returns a `Double`, which ultimately represents the distance between the points p1 and p2
-func distanceBetweenPoint(p1 : Point2D,  andPoint p2 : Point2D, usingMetric metric : DistanceMetric) -> Double {
+func distanceBetween(point : Point2D,  andPoint p2 : Point2D, usingMetric metric : DistanceMetric) -> Double {
    
    //The following three lines are common to many distance measures
    let dx = p1.x - p2.x        //Difference between x coordinates
@@ -149,60 +150,46 @@ let p1 : Point2D = (x: 1.0, y: 5.0)           //Point in 2D
 let p2 : Point2D = (x: 2.0, y: 3.0)           //And again
 
 //: Calculate using two different distance metrics - as we did in the playground on Functions.
-distanceBetweenPoint(p1, andPoint: p2, usingMetric: euclidean)
-distanceBetweenPoint(p1, andPoint: p2, usingMetric: maxAbsolute)
+distanceBetween(point: p1, andPoint: p2, usingMetric: euclidean)
+distanceBetween(point: p1, andPoint: p2, usingMetric: maxAbsolute)
 
 //: #### Now with closures.
 //:
 //: **Note**: `euclidean` and `maxAbsolute` are simple functions, so I can write them in-place without making the code too complex.
-distanceBetweenPoint(p1, andPoint: p2, usingMetric: { (p : Point2D)-> Double in
+distanceBetween(point: p1, andPoint: p2, usingMetric: { (p : Point2D)-> Double in
    return sqrt(p.x*p.x + p.y*p.y)
 })
 //: Now we can simplify.
 
 //: #### Inferred return rule
 //: For a single statement closure, you can drop the `return`
-distanceBetweenPoint(p1, andPoint: p2, usingMetric: { (p : Point2D)-> Double in
+distanceBetween(point: p1, andPoint: p2, usingMetric: { (p : Point2D)-> Double in
    sqrt(p.x*p.x + p.y*p.y)
 })
 
 //: #### Using parameter type inference and shorthand notation
 //: The higher order function `distanceBetweenPoint` already tells the compiler the parameter types. Therefore we can use the **shorthand notation** and let the compiler infer the type
-distanceBetweenPoint(p1, andPoint: p2, usingMetric: { sqrt($0.x*$0.x + $0.y*$0.y) })
+distanceBetween(point: p1, andPoint: p2, usingMetric: { sqrt($0.x*$0.x + $0.y*$0.y) })
 //: where $0 is the first (and only) parameter.
 
 //: #### Trailing Closures
 //: Note that the *last* parameter of the higher-order function is the closure. Where this is the case, we can use *trailing closure syntax* to make it more readable
-distanceBetweenPoint(p1, andPoint: p2){ sqrt($0.x*$0.x + $0.y*$0.y) }
+distanceBetween(point: p1, andPoint: p2){ sqrt($0.x*$0.x + $0.y*$0.y) }
 //: or if you prefer
-distanceBetweenPoint(p1, andPoint: p2){
+distanceBetween(point: p1, andPoint: p2){
    sqrt($0.x*$0.x + $0.y*$0.y)
 }
 //: Note how the last parameter is no longer labelled or included in the parenthesis list.
 
-//: #### Interchangability of parameters and tuples
-//: *As an aside*, although it seems we have a single input parameter of type `Point2D`, and given this is a 2-tuple, we can treat it as two parameters. For example:
-
-//: This would seem to have two parameters
-func tupleTest(a : Int, _ b : Double) -> Double {
-   return Double(a) * b
-}
-tupleTest(2, 6.0)
-
-//: Observe this - encalsualte the same-type values in a single tuple
-let p = (2, 6.0)
-tupleTest(p)
-//: So passing a 2-tuple as a single parameter would seem to be equivalent to passing two parameters in the same order.
-
 //: This seems to work with shorthand parameter names as well:
-distanceBetweenPoint(p1, andPoint: p2) {
+distanceBetween(point: p1, andPoint: p2) {
    sqrt($0*$0 + $1*$1)
 }
 //: (where $0 is the first tuple element, and $1 the second).
 
 //: #### Comment
 //: A real benefit here is that it is easy to write different closures, in a very compact form, to adapt the behaviour of a higher order function, thus *the code is kept together*. This can help readibility and maintainance. It does assume the reader is confident with closure syntax of course, and can understand the type inference. In the next example, a different distance metric is used.
-distanceBetweenPoint(p1, andPoint: p2) { max(fabs($0.x) , fabs($0.y)) }
+distanceBetween(point: p1, andPoint: p2) { max(fabs($0.x) , fabs($0.y)) }
 //: With practise, this becomes quick and easy to read (at least for simple examples).
 
 //: ### Further Examples from the Swift Standard Library
@@ -215,11 +202,11 @@ distanceBetweenPoint(p1, andPoint: p2) { max(fabs($0.x) , fabs($0.y)) }
 let arrayOfNumbers = [1, 15, -5, 10, 22]
 
 //: Calculate the mean *(maybe you now understand this code?)*
-let sum = arrayOfNumbers.reduce(0, combine: {$0 + $1})     //Sum all elements in the array
+let sum = arrayOfNumbers.reduce(0, {$0 + $1})     //Sum all elements in the array
 let fMean = Double(sum) / Double(arrayOfNumbers.count)     //Divide to obtain arithmetic mean
 
 //: Now sort to find the values closest to the mean. Again, I am using the *trailing closure* syntax to make this more readable.
-let sortedArray = arrayOfNumbers.sort(){
+let sortedArray = arrayOfNumbers.sorted(){
    let da = fabs(Double($0)-fMean)     //capture fMean
    let db = fabs(Double($1)-fMean)
    return da < db
@@ -279,10 +266,10 @@ func f1(a : Int, _ b : Int) -> Int {
 }
 
 //: Rather than pass in f1,we can simply write a closure
-let sumOfAllElements = arrayOfNumbers.reduce(0, combine: {$0+$1})
+let sumOfAllElements = arrayOfNumbers.reduce(0, {$0+$1})
 sumOfAllElements
 //: or even this (See next section for a discussion)
-arrayOfNumbers.reduce(0, combine: +)
+arrayOfNumbers.reduce(0, +)
 
 //: ### Even more simplification - function name (including operator functions)
 //: As demonstrated above, you can sometimes simplify even further. 
@@ -295,7 +282,6 @@ let yy = radians.map(sin)
 //: To see the output, view the timeline
 for yval in yy {
    yval
-   XCPlaygroundPage.currentPage.captureValue(yval, withIdentifier: "COSINE")
 }
 
 //: As we saw earlier, this also works with operator functions
@@ -319,7 +305,7 @@ let negated = arrayOfNumbers.map(-)
 
 //: This custom unary operator squares a number
 protocol CanMultiply {
-   func * (u : Self, v : Self)->Self
+   static func * (u : Self, v : Self)->Self
 }
 
 //: Extend Int and Double so they now conform to this protocol
@@ -328,7 +314,7 @@ extension Double : CanMultiply {}
 //: (We will discuss extensions later)
 
 //: Declare and define the operator
-postfix operator ^^ {}
+postfix operator ^^
 postfix func^^<U:CanMultiply>(u : U) -> U {
    return u*u
 }
@@ -345,7 +331,7 @@ let squaredDbl = arrayOfNumbers.map({Double($0)}).map(^^)
 
 //: **TASK**
 //: This is the higher order function
-func performSomething(a : Int, _ b : Int, fn : (Int, Int)->Int ) -> String {
+func performSomething(_ a : Int, _ b : Int, fn : (Int, Int)->Int ) -> String {
    let result = fn(a,b)
    let strResult = "fn(\(a),\(b)) = \(result)"
    return strResult

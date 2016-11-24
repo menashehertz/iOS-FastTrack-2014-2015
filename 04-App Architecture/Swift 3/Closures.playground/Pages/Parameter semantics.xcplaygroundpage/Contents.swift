@@ -1,6 +1,6 @@
 //: [Previous](@previous)
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 //: ![Closures](Banner.jpg)
 
 //: ## Parameter and Return Types
@@ -22,15 +22,13 @@ let message = { (name : String, title : String?) -> String in
 message("Spock", "Mr")
 message("Bones", nil)
 
-//: ### Variable Parameters - same as functions
-//: To save creating another local variable, you can make a parameter a variable.
-//: Note:
-//: * the parameter is *an independent copy*, not a reference to the original
-//: * as it is a parameter, it is already initialised
-let mac = { (var accumulator: Double, x : Double, y : Double) -> Double in
-   //accumulator is a copy - not the original
-   accumulator += x*y
-   return accumulator
+//: ### Variable Parameters - no longer supported
+//: You simple have to create a local variable
+let mac = { ( accumulator: Double, x : Double, y : Double) -> Double in
+   //accumulator acc is a copy - not the original
+   var acc = accumulator
+   acc += x*y
+   return acc
 }
 
 //: The variable `a` is an accumulator (stores a running sum)
@@ -40,7 +38,7 @@ a = mac(a, 2.0, 3.0)  // a = a + 6
 a = mac(a, 5.0, 2.0)  // a = a + 10
 
 //: ### inout parameters - same as functions
-let mac2 = { ( inout accumulator: Double, x : Double, y : Double) in
+let mac2 = { ( accumulator: inout Double, x : Double, y : Double) in
    accumulator += x*y
 }
 a = 0.0
@@ -60,10 +58,10 @@ let recipe = { (t: String, ingredients: String...) -> String in
 }
 
 let page = recipe("Perfect Breakfast", "Cold Pizza", "Meat-balls", "Biriani")
-let wv = UIWebView(frame: CGRectMake(0,0,200,200))
+let wv = UIWebView(frame: CGRect(x: 0.0, y: 0.0, width: 200.0, height: 200.0) )
 wv.loadHTMLString(page, baseURL: nil)
 
 //: To see the output of this, turn on the Assistant View
-XCPlaygroundPage.currentPage.liveView = wv
+PlaygroundPage.current.liveView = wv
 
 

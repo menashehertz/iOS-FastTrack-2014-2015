@@ -1,14 +1,14 @@
 //: [Previous](@previous)
 
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 //: ![Closures](Banner.jpg)
 
 //: ## Creating an Asychronous API with GCD
 //:
 
 //: The following is needed to allow the execution of the playground to continue beyond the scope of the higher-order function.
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 
 let deg2rad = { $0*M_PI/180.0 }
@@ -19,9 +19,9 @@ let rad2deg = { $0 * 180.0 / M_PI }
 //: While we are on the subject of multi-threaded code, `NSOperationQueue` is built on a lower-level technology, *Grand Central Dispatch* (GCD). This is commonly used, so it is worth highlighting.
 
 //: Let's return to the original synchronous function
-func synchronousHillClimbWithInitialValue(var x0 : Double, 𝛌 : Double, maxIterations: Int, fn : (Double) -> Double ) -> (x: Double, y : Double)? {
-   
-   func estimateSlope(x : Double) -> Double {
+func synchronousHillClimbWithInitialValue(_ xx : Double, 𝛌 : Double, maxIterations: Int, fn : @escaping (Double) -> Double ) -> (x: Double, y : Double)? {
+   var x0 = xx
+   func estimateSlope(_ x : Double) -> Double {
       let 𝛅 = 1e-6
       let 𝛅2 = 2*𝛅
       return ( fn(x+𝛅)-fn(x-𝛅) ) / 𝛅2
@@ -50,20 +50,20 @@ func synchronousHillClimbWithInitialValue(var x0 : Double, 𝛌 : Double, maxIte
 
 //: Create / obtain a queue (separate thread) where all tasks can run concurrently
 //let q = dispatch_queue_create("calc", DISPATCH_QUEUE_CONCURRENT)   //Creates a new queue
-let q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)   //Use an existing (from the global pool)
+let q = DispatchQueue.global(qos: .default)   //Use an existing (from the global pool)
 //: Dispatch the task on the queue
-dispatch_async(q){
+q.async {
    //Call the (computationally intensive) function
    let solution = synchronousHillClimbWithInitialValue(0.01, 𝛌: 0.01, maxIterations: 10000, fn: sin)
    //: * Perform call-back on main thread. Again, the code is a parameterless trailing-closure.
-   dispatch_sync(dispatch_get_main_queue()) {
+   DispatchQueue.main.sync {
       if let s = solution {
          print("GCD: Peak of value \(s.y) found at x=\(rad2deg(s.x)) degrees", separator: "")
       } else {
          print("GCD: Did not converge")
       }
       //This next line is just to stop the Playground Executing forever
-      XCPlaygroundPage.currentPage.finishExecution()
+      PlaygroundPage.current.finishExecution()
    }
 }
 

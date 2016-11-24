@@ -4,9 +4,10 @@ import UIKit
 //: # Closure Syntax
 //: ## From the Lecture "Closures"
 //:
-//: For Xcode 7
+//: For Xcode 8
 //:
 //: First created 7th December 2015
+//: Updated Nov 2016
 
 //: ## Closure Syntax and Type Inference"
 
