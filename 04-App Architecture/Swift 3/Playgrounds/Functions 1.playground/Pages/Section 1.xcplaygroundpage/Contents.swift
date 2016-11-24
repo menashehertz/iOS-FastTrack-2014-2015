@@ -4,12 +4,14 @@ import UIKit
 //: # Functions - 1 Programming Examples
 //: ## From the Lecture "Functions 1"
 //:
-//: For Xcode 7.1.1
+//: For Xcode 8
 //:
-//: Updated 19th November 2015
-
+//: Updated 19th November 2015 Xcode 7 support
+//:
+//: Updated 24th November 2016 Xcode 8 support
+//:
 //: ## Function Syntax and Parameter Labelling"
-
+//:
 //: ### Example - with explicit internal and external parameter names
 
 //: Note how the external names are more *verbose*, allowing the internal names to be concise
@@ -27,7 +29,7 @@ func cuboidVolumeWithWidth(width:Double, height:Double, depth:Double) -> Double 
 }
 
 //: Note the following:
-//:   * The first parameter label is embedded in the function name
+//:   * The first parameter label is no longer embedded in the function name, but in the first label
 //:   * The remain parameters are automatically labelled (same as the intenal names)
 let V2 = cuboidVolume(width: 2.0, height: 3.0, depth: 10.0)
 
