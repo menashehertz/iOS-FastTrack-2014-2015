@@ -1,10 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E27e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,27 +20,27 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="RootView" customModule="ResponderChainDemo" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fr9-dg-Z6x" customClass="LightGreyView" customModule="ResponderChainDemo" customModuleProvider="target">
-                                <rect key="frame" x="20" y="274" width="560" height="266"/>
+                                <rect key="frame" x="20" y="342" width="374" height="334"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vqB-Mn-rSa" customClass="BlueView" customModule="ResponderChainDemo" customModuleProvider="target">
-                                        <rect key="frame" x="280" y="24" width="256" height="218"/>
+                                        <rect key="frame" x="187" y="24" width="163" height="286"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rEL-zX-H7X">
-                                                <rect key="frame" x="104" y="93" width="51" height="31"/>
+                                                <rect key="frame" x="57.666666666666686" y="127" width="51" height="31"/>
                                             </switch>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.082352943720000002" green="0.50196081400000003" blue="0.78039217000000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.082352943720000002" green="0.50196081400000003" blue="0.78039217000000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="rEL-zX-H7X" firstAttribute="centerY" secondItem="vqB-Mn-rSa" secondAttribute="centerY" id="Wt6-V0-fc1"/>
                                             <constraint firstItem="rEL-zX-H7X" firstAttribute="centerX" secondItem="vqB-Mn-rSa" secondAttribute="centerX" id="dPb-ZU-DFi"/>
                                         </constraints>
                                     </view>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pfS-12-o7K">
-                                        <rect key="frame" x="182" y="117" width="51" height="31"/>
+                                        <rect key="frame" x="89" y="151" width="51" height="31"/>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -50,31 +54,31 @@
                                 </constraints>
                             </view>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eV7-u4-hnt">
-                                <rect key="frame" x="113" y="549" width="51" height="31"/>
+                                <rect key="frame" x="113" y="685" width="51" height="31"/>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Root view:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPG-rF-mQv">
-                                <rect key="frame" x="20" y="554" width="80" height="21"/>
+                                <rect key="frame" x="20" y="690" width="80" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View Controller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeu-Dd-4KU">
-                                <rect key="frame" x="402" y="554" width="117" height="21"/>
+                                <rect key="frame" x="216" y="690" width="117" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xql-Dv-99C">
-                                <rect key="frame" x="531" y="549" width="51" height="31"/>
+                                <rect key="frame" x="345" y="685" width="51" height="31"/>
                             </switch>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTs-U1-f8T">
-                                <rect key="frame" x="20" y="20" width="560" height="246"/>
+                                <rect key="frame" x="20" y="20" width="374" height="314"/>
                                 <connections>
                                     <segue destination="fpn-ar-jLW" kind="embed" id="xIl-IW-r4X"/>
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fr9-dg-Z6x" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="A4E-Ca-4BH"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fr9-dg-Z6x" secondAttribute="bottom" constant="60" id="CVc-XT-KwY"/>
@@ -111,14 +115,14 @@
                         <viewControllerLayoutGuide type="bottom" id="KPS-KD-0kn"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="AnJ-xL-BgB" customClass="DarkGreyView" customModule="ResponderChainDemo" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="560" height="246"/>
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="314"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BfE-bq-KQj">
-                                <rect key="frame" x="256" y="107" width="51" height="31"/>
+                                <rect key="frame" x="162.66666666666666" y="141.66666666666666" width="51" height="31"/>
                             </switch>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="BfE-bq-KQj" firstAttribute="centerX" secondItem="AnJ-xL-BgB" secondAttribute="centerX" id="JdC-Ia-B4X"/>
                             <constraint firstItem="BfE-bq-KQj" firstAttribute="centerY" secondItem="AnJ-xL-BgB" secondAttribute="centerY" id="tiS-IQ-awL"/>

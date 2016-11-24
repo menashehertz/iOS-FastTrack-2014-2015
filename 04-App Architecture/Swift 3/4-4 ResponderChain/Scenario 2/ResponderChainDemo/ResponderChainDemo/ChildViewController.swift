@@ -34,12 +34,12 @@ class ChildViewController: UIViewController {
     }
     */
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.printNextRepsonderAsString()
         
-        if passUpSwitch.on {
+        if passUpSwitch.isOn {
             //Pass up the responder chain
-            super.touchesBegan(touches, withEvent: event)
+            super.touchesBegan(touches, with: event)
         }
     }
 

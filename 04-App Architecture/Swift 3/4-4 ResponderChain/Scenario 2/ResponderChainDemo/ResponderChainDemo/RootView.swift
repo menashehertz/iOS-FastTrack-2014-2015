@@ -18,12 +18,12 @@ class RootView: UIView {
     }
     */
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         printNextRepsonderAsString()
         
-        if let swState = switchState(0) where swState == true {
+        if let swState = switchState(0), swState == true {
             //Pass up the responder chain
-            super.touchesBegan(touches, withEvent: event)
+            super.touchesBegan(touches, with: event)
         }
     }
 

@@ -9,23 +9,23 @@
 import UIKit
 
 extension UIResponder {
-    func switchState(t : Int) -> Bool? {
+    func switchState(_ t : Int) -> Bool? {
         guard let me = self as? UIView else {
             return nil
         }
         for v in me.subviews {
-            if let sw = v as? UISwitch where v.tag == t {
-                return sw.on
+            if let sw = v as? UISwitch, v.tag == t {
+                return sw.isOn
             }
         }
         return false
     }
     
     func printNextRepsonderAsString() {
-        var result : String = "\(self.dynamicType) got a touch event."
+        var result : String = "\(type(of: self)) got a touch event."
         
-        if let nr = self.nextResponder() {
-            result += " The next responder is " + nr.dynamicType.description()
+        if let nr = self.next {
+            result += " The next responder is " + type(of: nr).description()
         } else {
             result += " This class has no next responder"
         }
@@ -48,12 +48,12 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.printNextRepsonderAsString()
         
-        if passUpSwitch.on {
+        if passUpSwitch.isOn {
             //Pass up the responder chain
-            super.touchesBegan(touches, withEvent: event)
+            super.touchesBegan(touches, with: event)
         }
     }
 
