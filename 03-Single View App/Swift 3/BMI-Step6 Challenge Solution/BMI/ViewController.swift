@@ -37,7 +37,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
    }
    
    //This function dismissed the keyboard
-   func textFieldShouldReturn(textField: UITextField) -> Bool {
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       textField.resignFirstResponder()
       return true
    }
@@ -85,16 +85,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //   }
    
    // SOLUTION TO CHALLENGE
-   func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
       
       guard let txt = textField.text else {
          return false
       }
       
-      let conv = { NSNumberFormatter().numberFromString($0)?.doubleValue }
+      let conv = { NumberFormatter().number(from: $0)?.doubleValue }
       
       let newString = NSMutableString(string: txt)
-      newString.replaceCharactersInRange(range, withString: string)
+      newString.replaceCharacters(in: range, with: string)
       
       switch (textField) {
          
