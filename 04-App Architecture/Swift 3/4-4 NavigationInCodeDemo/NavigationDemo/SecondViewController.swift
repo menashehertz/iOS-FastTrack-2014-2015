@@ -32,7 +32,7 @@ class SecondViewController: UIViewController {
     }
     */
 
-    @IBAction func doTapThis(sender: AnyObject) {
+    @IBAction func doTapThis(_ sender: AnyObject) {
         let sb = UIStoryboard(name: "DetailViewController", bundle: nil)
         if let vc = sb.instantiateInitialViewController() as? DetailViewController {
             
@@ -40,7 +40,7 @@ class SecondViewController: UIViewController {
 //            self.navigationController?.pushViewController(vc, animated: true)
             
             //The "adaptive" showViewController - we don't assume the context (how clever!)
-            self.showViewController(vc, sender: self)
+            self.show(vc, sender: self)
         }
     }
 }
