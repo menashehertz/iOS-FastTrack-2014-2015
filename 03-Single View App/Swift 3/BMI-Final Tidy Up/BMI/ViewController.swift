@@ -41,7 +41,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
      // Dispose of any resources that can be recreated.
    }
 
-   func textFieldShouldReturn(textField: UITextField) -> Bool {
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
      textField.resignFirstResponder()
      updateUI()
      return true
@@ -55,7 +55,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
 
 
    //Called when ever the textField looses focus
-   func textFieldDidEndEditing(textField: UITextField) {
+   func textFieldDidEndEditing(_ textField: UITextField) {
 
    //First we check if textField.text actually contains a (wrapped) String
    guard let txt : String = textField.text else {
@@ -65,8 +65,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
 
    //At this point, txt is of type String. Here is a nested function that will be used
    //to parse this string, and convert it to a wrapped Double if possible.
-   func conv(numString : String) -> Double? {
-      let result : Double? = NSNumberFormatter().numberFromString(numString)?.doubleValue
+   func conv(_ numString : String) -> Double? {
+      let result : Double? = NumberFormatter().number(from: numString)?.doubleValue
       return result
    }
 
@@ -90,11 +90,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
 
    }
 
-   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+   func numberOfComponents(in pickerView: UIPickerView) -> Int {
      return 1
    }
 
-   func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
      switch (pickerView) {
      case self.heightPickerView:
          return listOfHeightsInM.count
@@ -107,7 +107,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
      }
    }
    
-   func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
       
      switch (pickerView) {
       
@@ -123,7 +123,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
       
    }
    
-   func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
       
       switch (pickerView) {
       
