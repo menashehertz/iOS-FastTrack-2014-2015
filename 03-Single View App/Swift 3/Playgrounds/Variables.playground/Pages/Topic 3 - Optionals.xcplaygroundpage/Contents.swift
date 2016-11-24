@@ -95,7 +95,7 @@ let strCandidate2 = "ten"       //This cannot
 var dblVal : Double?
 
 //: First time, all is well - note the `?` in the next line
-dblVal = NSNumberFormatter().numberFromString(strCandidate1)?.doubleValue
+dblVal = NumberFormatter().number(from: strCandidate1)?.doubleValue
 if let v = dblVal {
    //dbVal can be unwrapped and copied into v
    print("The number is \(v)")
@@ -106,7 +106,7 @@ If `numberFromString()` cannot perform the conversion, a `nil` is returned. Let'
 
 Consider the case `let strCandidate2 = "ten"`. A string is not a valid number - the evaluation gets as far as `NSNumberFormatter().numberFromString(strCandidate2)`
 */
-dblVal = NSNumberFormatter().numberFromString(strCandidate2)?.doubleValue
+dblVal = NumberFormatter().number(from: strCandidate2)?.doubleValue
 
 //: The `?` above tells the compiler to only continue evauation if the result can be safely unwrapped, otherwise stop processing.
 //:

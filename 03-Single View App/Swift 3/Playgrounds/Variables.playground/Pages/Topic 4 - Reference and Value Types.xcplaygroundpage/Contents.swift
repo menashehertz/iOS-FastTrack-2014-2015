@@ -6,7 +6,7 @@ import UIKit
 //: We are familiar with value-type semantics when working with simple data types. For example:
 var fred : Int = 10
 var jim : Int = fred
-jim++
+jim += 1
 //: The variable `jim` is an independent copy - so changes to `jim` will not impact on `fred`
 if (fred == jim) {
    print("These must be the same object");
