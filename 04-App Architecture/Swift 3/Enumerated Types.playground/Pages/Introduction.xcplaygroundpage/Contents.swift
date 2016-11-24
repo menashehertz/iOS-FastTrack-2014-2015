@@ -3,9 +3,10 @@
 //: # Enumerated Types
 //:
 //: (c) Nicholas Outram 2016
-//: Version 1.0 
+//: Version 1.01
 //: Change Log:
 //: 18-11-2016 Released to iTunes U
+//: 24-11-2016 Improved example on equating enums with assoc. values
 //:
 //: Enumerated types are commonly found in other languages. They promote type-safety and readability.
 //: Swift enumerated types are far more powerful than those found in older languages such as C. For certain use-cases they can be a natural replacment for a class or structure. Like structures and unlike classes, enumerated types are also value-types.
@@ -13,9 +14,13 @@
 //: Let's begin with a look at an example. 
 import UIKit
 import PlaygroundSupport
+PlaygroundPage.current.needsIndefiniteExecution = true
+
 //: Make sure the Timeline is visible (cmd-alt-return)
 let vc = ViewController()
-PlaygroundPage.current.liveView = vc.view
+
+ PlaygroundPage.current.liveView = vc
+
 var allResponses = [Int]()
 //: This closure runs each time a selection is made
 vc.storeNewValue = { (u : Int) -> Void in
@@ -41,6 +46,7 @@ vc.finished = {
    }
    allResponses.removeAll()
 }
+
 //: - Experiment: If you change `else if (resp==4)` to `else if (resp==44)` as if you had made a typing error, how would you know about the error?
 //:
 //: Of course, you might suggest using a `switch` statement instead.

@@ -63,6 +63,7 @@ public class ViewController: UIViewController {
       segment = UISegmentedControl(items: ["Disagree", "Slightly Disagree", "Slightly Agree", "Agree"])
       segment.translatesAutoresizingMaskIntoConstraints = false
       segment.isMomentary = true
+      segment.apportionsSegmentWidthsByContent = true
       
       let title = UILabel(frame: .zero)
       title.text = "Swift is the perfect beginners language"
