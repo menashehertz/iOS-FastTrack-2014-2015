@@ -24,7 +24,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         //Optimisation of battery
         loc.pausesLocationUpdatesAutomatically = true
-        loc.activityType = CLActivityType.Fitness
+        loc.activityType = CLActivityType.fitness
         loc.allowsBackgroundLocationUpdates = false
         
         return loc
@@ -46,11 +46,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - CLLocationManagerDelegate
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
-        if status == CLAuthorizationStatus.AuthorizedAlways {
+        if status == CLAuthorizationStatus.authorizedAlways {
             mapView.showsUserLocation = true
-            mapView.userTrackingMode = MKUserTrackingMode.Follow
+            mapView.userTrackingMode = MKUserTrackingMode.follow
         } else {
             print("Permission Refused")
         }
