@@ -37,7 +37,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
    }
    
    //This function dismissed the keyboard
-   func textFieldShouldReturn(textField: UITextField) -> Bool {
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       textField.resignFirstResponder()
       return true
    }
@@ -49,7 +49,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
    }
    
    //Called when ever the textField looses focus
-   func textFieldDidEndEditing(textField: UITextField) {
+   func textFieldDidEndEditing(_ textField: UITextField) {
       
       //First we check if textField.text actually contains a (wrapped) String
       guard let txt : String = textField.text else {
@@ -59,8 +59,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
       
       //At this point, txt is of type String. Here is a nested function that will be used
       //to parse this string, and convert it to a wrapped Double if possible.
-      func conv(numString : String) -> Double? {
-         let result : Double? = NSNumberFormatter().numberFromString(numString)?.doubleValue
+      func conv(_ numString : String) -> Double? {
+         let result : Double? = NumberFormatter().number(from: numString)?.doubleValue
          return result
       }
       
