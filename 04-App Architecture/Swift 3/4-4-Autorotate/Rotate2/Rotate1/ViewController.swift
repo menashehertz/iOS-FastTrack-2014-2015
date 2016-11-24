@@ -16,7 +16,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
       // Do any additional setup after loading the view, typically from a nib.
    }
 
-   override func viewWillAppear(animated: Bool) {
+   override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       self.navigationController?.delegate = self
    }
@@ -36,14 +36,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
    // * The following are only called when used as a root view controller or when presented *
    // ***************************************************************************************
    
-   override func shouldAutorotate() -> Bool {
+   override var shouldAutorotate : Bool {
       //This controller can rotate
       return true
    }
    
    //For when this is a root view controller or presented
-   override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-      return .AllButUpsideDown
+   override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+      return .allButUpsideDown
    }
    
    
@@ -52,14 +52,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
    // ***************************************************************************************
    
  
-   func navigationControllerSupportedInterfaceOrientations(navigationController: UINavigationController) -> UIInterfaceOrientationMask {
+   func navigationControllerSupportedInterfaceOrientations(_ navigationController: UINavigationController) -> UIInterfaceOrientationMask {
       //When embedded in a navigation controller, only portrait is supported
-      return .Portrait
+      return .portrait
    }
    
-   func navigationControllerPreferredInterfaceOrientationForPresentation(navigationController: UINavigationController) -> UIInterfaceOrientation {
+   func navigationControllerPreferredInterfaceOrientationForPresentation(_ navigationController: UINavigationController) -> UIInterfaceOrientation {
       //Use portrait with the nav controller
-      return .Portrait
+      return .portrait
    }
    
  

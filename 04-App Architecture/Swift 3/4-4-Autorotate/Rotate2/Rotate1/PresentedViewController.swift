@@ -18,7 +18,7 @@ class PresentedViewController: UIViewController {
         // Do any additional setup after loading the view.
       if let _ = self.navigationController {
          self.titleLabel.text = "Pushed"
-         self.dismissButton.hidden = true
+         self.dismissButton.isHidden = true
          
       } else {
          self.titleLabel.text = "Presented"
@@ -30,26 +30,26 @@ class PresentedViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-   @IBAction func doDismiss(sender: AnyObject) {
-      self.dismissViewControllerAnimated(true, completion: { })
+   @IBAction func doDismiss(_ sender: AnyObject) {
+      self.dismiss(animated: true, completion: { })
    }
       
    
    // ***************************************************************************************
    // * The following are only called when used as a root view controller or when presented *
    // ***************************************************************************************
-   override func shouldAutorotate() -> Bool {
+   override var shouldAutorotate : Bool {
       return false
    }
    
-   override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-      return .AllButUpsideDown
+   override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+      return .allButUpsideDown
    }
    
    //When a root view controller or when presented
-   override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+   override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
       //For presentation, only use landscapeRight
-      return .LandscapeRight
+      return .landscapeRight
    }
    
 
