@@ -38,18 +38,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //
     
     //Return the number of sections - for this plain table, it's just 1
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     //Return the numner of rows in a given section. Look this up from the data
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.arrayOfThings.count
     }
     
     //Return a UITableViewCell (table row) - I will use a stock item, but typically you would make your own
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
         //See here how Optional Chaining is used to conditionally set a property if it is not nil
         cell.textLabel?.text = self.arrayOfThings[indexPath.row]
         return cell
@@ -60,14 +60,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //
     
     //Call back when a user taps on a row in a given section.
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         //We only have one section, so use indexPath.row to dereference the array
         let selectedString = self.arrayOfThings[indexPath.row]
         print("You picked \(selectedString)")
         
         //Animate the deselection
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
