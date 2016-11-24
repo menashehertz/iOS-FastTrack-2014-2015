@@ -21,24 +21,24 @@ class PresentedViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-   @IBAction func doDismiss(sender: AnyObject) {
+   @IBAction func doDismiss(_ sender: AnyObject) {
       //This is forwarded automatically to the presenting controller
       //This is fine as we've no data to pass back
-      self.dismissViewControllerAnimated(true, completion: {})
+      self.dismiss(animated: true, completion: {})
    }
 
-   override func shouldAutorotate() -> Bool {
+   override var shouldAutorotate : Bool {
       return true
    }
    
    //Return all supported interface orientations
-   override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-      return UIInterfaceOrientationMask.AllButUpsideDown
+   override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+      return UIInterfaceOrientationMask.allButUpsideDown
    }
 
    //This is used for modal presentation - a subset of the supported orientations
-   override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-      return .Portrait
+   override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+      return .portrait
    }
    
    

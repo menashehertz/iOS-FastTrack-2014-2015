@@ -27,34 +27,34 @@ class ViewController: UIViewController {
       // Dispose of any resources that can be recreated.
    }
 
-   @IBAction func doRotateSwitch(sender: AnyObject) {
-      doesRotate = rotateSwitch.on
+   @IBAction func doRotateSwitch(_ sender: AnyObject) {
+      doesRotate = rotateSwitch.isOn
       UIViewController.attemptRotationToDeviceOrientation()
    }
 
-   @IBAction func doLeftSwitch(sender: AnyObject) {
-      leftAllowed = leftSwitch.on
+   @IBAction func doLeftSwitch(_ sender: AnyObject) {
+      leftAllowed = leftSwitch.isOn
       UIViewController.attemptRotationToDeviceOrientation()
    }
    
-   @IBAction func doRightSwitch(sender: AnyObject) {
-      rightAllowed = rightSwitch.on
+   @IBAction func doRightSwitch(_ sender: AnyObject) {
+      rightAllowed = rightSwitch.isOn
       UIViewController.attemptRotationToDeviceOrientation()
    }
    
-   override func shouldAutorotate() -> Bool {
+   override var shouldAutorotate : Bool {
       return doesRotate
    }
    
-   override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+   override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
 
-      var maskSet : UIInterfaceOrientationMask = .Portrait
+      var maskSet : UIInterfaceOrientationMask = .portrait
       
       if leftAllowed {
-         maskSet = [maskSet, .LandscapeLeft]
+         maskSet = [maskSet, .landscapeLeft]
       }
       if rightAllowed {
-         maskSet = [maskSet, .LandscapeRight]
+         maskSet = [maskSet, .landscapeRight]
       }
       return maskSet
    }
