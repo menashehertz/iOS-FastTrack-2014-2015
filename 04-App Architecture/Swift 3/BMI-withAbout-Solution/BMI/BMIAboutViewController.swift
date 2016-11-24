@@ -21,8 +21,8 @@ class BMIAboutViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-   @IBAction func doDismiss(sender: AnyObject) {
-      self.dismissViewControllerAnimated(true, completion: { })
+   @IBAction func doDismiss(_ sender: AnyObject) {
+      self.dismiss(animated: true, completion: { })
    }
 
     /*

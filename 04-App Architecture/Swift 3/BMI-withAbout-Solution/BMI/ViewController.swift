@@ -53,7 +53,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
    }
    
    //This function dismisses the keyboard when return is tapped
-   func textFieldShouldReturn(textField: UITextField) -> Bool {
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       textField.resignFirstResponder()
       return true
    }
@@ -66,7 +66,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
    }
    
    //Called when ever the textField looses focus
-   func textFieldDidEndEditing(textField: UITextField) {
+   func textFieldDidEndEditing(_ textField: UITextField) {
       
       //First we check if textField.text actually contains a (wrapped) String
       guard let txt = textField.text else {
@@ -76,7 +76,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
       
       //At this point, txt is of type String. Here is a nested function that will be used
       //to parse this string, and convert it to a wrapped Double if possible.
-      let val = NSNumberFormatter().numberFromString(txt)?.doubleValue
+      let val = NumberFormatter().number(from: txt)?.doubleValue
       
       //Which textField is being edit?
       switch (textField) {
@@ -99,12 +99,12 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
    }
    
    //Return the numeber of components in the picker (spinning barrels). We only want 1
-   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+   func numberOfComponents(in pickerView: UIPickerView) -> Int {
       return 1
    }
    
    //For a given component, return the number of rows that are displayed / can be selected
-   func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 
       switch (pickerView) {
       case heightPickerView:
@@ -120,7 +120,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
    }
    
    //For this example, the picker is populated with Strings, derived from arrays.
-   func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
       
       switch (pickerView) {
       case heightPickerView:
@@ -136,7 +136,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegat
    }
    
    //When a user picks a value, this method is called.
-   func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
       switch (pickerView) {
       case heightPickerView:
          self.height = self.listOfHeightsInM[row]
