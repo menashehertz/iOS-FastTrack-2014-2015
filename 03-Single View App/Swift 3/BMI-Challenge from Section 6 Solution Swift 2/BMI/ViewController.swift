@@ -11,11 +11,11 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
-   class func doDiv100(u : Int) -> Double {
+   class func doDiv100(_ u : Int) -> Double {
       return Double(u) * 0.01
    }
    
-   class func doDiv2(u : Int) -> Double {
+   class func doDiv2(_ u : Int) -> Double {
       return Double(u) * 0.5
    }
    
@@ -49,7 +49,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
         // Dispose of any resources that can be recreated.
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         updateUI()
         return true
@@ -104,16 +104,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
    
 
     // SOLUTION TO CHALLENGE
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
       guard let txt = textField.text else {
          return false
       }
       
-      let conv = { NSNumberFormatter().numberFromString($0)?.doubleValue }
+      let conv = { NumberFormatter().number(from: $0)?.doubleValue }
  
       let newString = NSMutableString(string: txt)
-      newString.replaceCharactersInRange(range, withString: string)
+      newString.replaceCharacters(in: range, with: string)
       
       switch (textField) {
          
@@ -135,11 +135,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
       return true
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch (pickerView) {
         case self.heightPickerView:
             return listOfHeightsInM.count
@@ -151,7 +151,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
             return 0
         }
     }
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch (pickerView) {
         case self.heightPickerView:
             return String(format: "%4.2f", listOfHeightsInM[row])
@@ -164,7 +164,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSou
         }
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch (pickerView) {
         case self.heightPickerView:
             let h : Double = self.listOfHeightsInM[row]
