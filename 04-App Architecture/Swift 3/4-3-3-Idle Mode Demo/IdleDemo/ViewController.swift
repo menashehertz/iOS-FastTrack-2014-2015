@@ -23,13 +23,13 @@ class ViewController: UIViewController {
       // Dispose of any resources that can be recreated.
    }
 
-   @IBAction func doNumberCrunch(sender: AnyObject) {
+   @IBAction func doNumberCrunch(_ sender: AnyObject) {
       guard let button = sender as? UIButton else {
          return
       }
       
       //Set UI State
-      button.enabled = false
+      button.isEnabled = false
       self.progressView.progress = 0.0
       self.progressView2.progress = 0.0
       
@@ -38,31 +38,31 @@ class ViewController: UIViewController {
       
       // H.O.F. - returns a Block of code to run on a seperate thread
       // Captures the specific bar to update.
-      func blockWithProgressBar(bar : UIProgressView) -> () -> () {
+      func blockWithProgressBar(_ bar : UIProgressView) -> () -> () {
          
          // This closure is returned
          // We are basically using currying to capture the bar parameter
          let blockOfCode = {
             //Perform expensive computation
             var result = 0.0
-            for var n : Int = 0; n<100; n++ {
-               for var m : Int = 0; m<5000000; m++ {
+            for n : Int in 0 ..< 100 {
+               for m : Int in 0 ..< 5000000 {
                   result += Double(n)*Double(m) * (m%2==0 ? -1.0 : +1.0)
                }
                //Update UI on main thread - capturing 'bar' - note the trailing closure
-               NSOperationQueue.mainQueue().addOperation(NSBlockOperation(){
+               OperationQueue.main.addOperation(BlockOperation(){
                   bar.progress = Float(n)*0.01
                })
             }
             
             //Message main thread when done - note again the trailing closure
-            NSOperationQueue.mainQueue().addOperation(NSBlockOperation(){
+            OperationQueue.main.addOperation(BlockOperation(){
                //Reset GUI (only on main thread)
                bar.progress = 0.0
                //This is safe as it is queued on the main thread
-               threads--
+               threads -= 1
                if threads == 0 {
-                  button.enabled = true
+                  button.isEnabled = true
                }
             })
          }
@@ -71,9 +71,9 @@ class ViewController: UIViewController {
       }
       
       //Run on two seperate threads
-      let Q = NSOperationQueue()
-      let P1 = NSBlockOperation(block: blockWithProgressBar(progressView))
-      let P2 = NSBlockOperation(block: blockWithProgressBar(progressView2))
+      let Q = OperationQueue()
+      let P1 = BlockOperation(block: blockWithProgressBar(progressView))
+      let P2 = BlockOperation(block: blockWithProgressBar(progressView2))
       Q.addOperation(P1)
       Q.addOperation(P2)
    }
