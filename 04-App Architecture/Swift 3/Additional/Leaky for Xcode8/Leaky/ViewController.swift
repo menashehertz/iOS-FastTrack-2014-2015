@@ -40,7 +40,7 @@ class ChildObject {
 
 class ViewController: UIViewController {
 
-    private var model : ParentObject?
+    fileprivate var model : ParentObject?
     
     
     override func viewDidLoad() {
