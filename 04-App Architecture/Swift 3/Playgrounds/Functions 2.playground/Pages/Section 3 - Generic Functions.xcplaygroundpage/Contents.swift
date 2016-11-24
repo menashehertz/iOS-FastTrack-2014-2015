@@ -1,14 +1,14 @@
 //: [Previous](@previous)
 
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 
 //: ![Functions Part 2](banner.png)
 
 //: # Functions Part 2 - Section 3
-//: Version 2 - updated for Swift 2
+//: Version 3 - updated for Swift 3
 //:
-//: 23-11-2015
+//: 24-11-2016
 //:
 //: This playground is designed to support the materials of the lecure "Functions 2".
 
@@ -43,7 +43,7 @@ compareAnything(10, b: 10)
 
 //: ### Generic Functions with custom constraints
 protocol CanMultiply {
-   func *(left: Self, right: Self) -> Self
+   static func *(left: Self, right: Self) -> Self
 }
 extension Double : CanMultiply {}
 extension Int : CanMultiply {}

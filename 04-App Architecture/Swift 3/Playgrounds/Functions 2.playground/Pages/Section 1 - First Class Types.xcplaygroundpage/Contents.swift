@@ -1,12 +1,12 @@
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 
 //: ![Functions Part 2](banner.png)
 
 //: # Functions Part 2
-//: Version 2 - updated for Swift 2
+//: Version 3 - updated for Swift 3
 //:
-//: 23-11-2015
+//: 24-11-2016
 //:
 //: This playground is designed to support the materials of the lecure "Functions 2".
 
@@ -129,7 +129,7 @@ let sortedArray = arrayOfNumbers.sorted(by: nearestToMean)
 
 //Display in assistant-editor timeline
 for n in sortedArray {
-   XCPlaygroundPage.currentPage.captureValue(value: n, withIdentifier: "Plot")
+   n
 }
 
 //: ### Example - `map`
@@ -173,7 +173,7 @@ let sumOfAllElements = arrayOfNumbers.reduce(0, f1)
 //: ## Custom Operators
 
 //: ### Prefix operators
-prefix operator ∑ { }
+prefix operator ∑
 prefix func ∑ (u : [Double]) -> Double {
    return u.reduce(0.0, +) //Sum all elements
 }
@@ -181,7 +181,7 @@ prefix func ∑ (u : [Double]) -> Double {
 let vec = [1.0, 3.0, 6.0]
 let sum = ∑vec
 
-prefix operator - {}
+prefix operator -
 prefix func -(u:[Double]) -> [Double] {
    let v = u.map({-$0})
    return v
@@ -190,7 +190,7 @@ prefix func -(u:[Double]) -> [Double] {
 let negVec = -[1.0, -3.0]
 
 //: ### Postfix operator
-postfix operator % {}
+postfix operator %
 postfix func %(val : Double) -> Double {
    return val/100.0
 }
@@ -201,8 +201,7 @@ postfix func %(val : Double) -> Double {
 
 //: Infix functions take two arguments, one either side of the operator.
 //: First, let's look at a left-associative function
-
-infix operator -- { associativity left precedence 140 } //Same precedence as +
+infix operator -- : AdditionPrecedence //Same left precedence as +
 func --(left : Double, right : Double) -> Double {
    return (left - right)
 }
@@ -210,8 +209,13 @@ func --(left : Double, right : Double) -> Double {
 (3 -- 2) -- 1
 
 //: Now, let's compare with a right-associative function
-infix operator --- { associativity right precedence 140 } //Same precedence as +
+precedencegroup RightAdditionPrecedence {
+   associativity: right
+//   higherThan:  TBD
+//   lowerThan:   TBD
+}
 
+infix operator --- : RightAdditionPrecedence // Same precedence as +, but right associativity
 func ---(left : Double, right : Double) -> Double {
    return (left - right)
 }
@@ -222,7 +226,12 @@ func ---(left : Double, right : Double) -> Double {
 //: Same as `3 -- (2 -- 1)`
 
 //: Another example - power
-infix operator ** { associativity left precedence 160 } // Same as << and >>, greater than multiply
+precedencegroup LeftPowerPrecedence {
+   associativity: left
+   higherThan: MultiplicationPrecedence
+   //   lowerThan:   TBD
+}
+infix operator ** : LeftPowerPrecedence //{ associativity left precedence 160 } // Same as << and >>, greater than multiply
 func ** (a : Double, b: Double) -> Double {
    return pow(a, b)
 }
@@ -384,13 +393,13 @@ let F = f1(2.0)(4.0)
 F(2)
 F(3)
 
-//: ### Example v2 - Convert a 3 input function to 3x1 Input
-func ff(_ m : Double, _ x : Double, _ c : Double) -> Double {
-    return m*x + c
-}
-
-let FF = ff(2.0)(4.0)
-FF(c: 2.0)
+////: ### Example v2 - Convert a 3 input function to 3x1 Input
+//func ff(_ m : Double, _ x : Double, _ c : Double) -> Double {
+//    return m*x + c
+//}
+//
+//let FF = ff(2.0)(4.0)
+//FF(c: 2.0)
 
 //: ### Example v3 - Convert a 3 input function to 3x1 Input
 func fff(_ m : Double, _ x : Double) -> ((Double) -> Double) {
@@ -401,7 +410,7 @@ func fff(_ m : Double, _ x : Double) -> ((Double) -> Double) {
     return fff2
 }
 
-let FFF = fff(2.0)(4.0)
+let FFF = fff(2.0, 4.0)
 FFF(2.0)
 
 

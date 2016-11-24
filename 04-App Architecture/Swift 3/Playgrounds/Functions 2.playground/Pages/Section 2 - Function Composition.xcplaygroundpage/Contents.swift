@@ -1,16 +1,15 @@
 //: [Previous](@previous)
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 
 //: ![Functions Part 2](banner.png)
 
 //: # Functions Part 2 - Section 2 - Functional Programming Examples
-//: Version 2 - updated for Swift 2
+//: Version 3 - updated for Swift 3
 //:
-//: For Xcode 7.1.1
+//: For Xcode 8
 //:
-//: Updated 18th November 2015
-//: 23-11-2015
+//: Updated 24th November 2016
 //:
 //: This playground is designed to support the materials of the lecure "Functions 2".
 
@@ -110,7 +109,7 @@ func negate(_ p: Point2D) -> Point2D {
 //:
 //: Where two functions are to be applied, one to the output of the other, then we can create a higher-order function to perform this for us.
 //:
-func composeTransform(_ f1: Transform2D, _ f2: Transform2D) -> Transform2D {
+func composeTransform(_ f1: @escaping Transform2D, _ f2: @escaping Transform2D) -> Transform2D {
    func tx(_ point: Point2D) -> Point2D {
       return f2(f1(point))
    }
@@ -120,8 +119,8 @@ func composeTransform(_ f1: Transform2D, _ f2: Transform2D) -> Transform2D {
 //: ### To make it resemble a UNIX pipe, I've created a custom operator |-> . Note the associativity is critcal
 //:
 
-infix operator |-> { associativity left }
-func |-> (f1: Transform2D, f2: Transform2D) -> Transform2D {
+infix operator |-> : AdditionPrecedence
+func |-> (f1: @escaping Transform2D, f2: @escaping Transform2D) -> Transform2D {
    func tx(_ point: Point2D) -> Point2D {
       return f2(f1(point))
    }
@@ -199,7 +198,7 @@ let plot3 = PlotViewWithPoints(points3)
 //: Both the centre and angle of rotation need to be provided and captured
 
 //: This version uses Currying so that only one parameter is ever passed
-func orbit(_ center : Point2D) -> ((Double) -> Transform2D) {
+func orbit(center : Point2D) -> ((Double) -> Transform2D) {
    let minusCenter = negate(center)
    func R(_ angle : Double) -> Transform2D {
       let tx = translate(minusCenter) |-> rotate(angle) |-> translate(center)
@@ -237,7 +236,8 @@ let solarOrbit = orbit(center : sun)
 
 //: We can now apply different angles around the sun
 var trans = [Transform2D]()         //Array of functions (all with captured data of course!)
-for (var ß = 0.0; ß<360.0; ß+=60.0) {
+//for (var ß = 0.0; ß<360.0; ß+=60.0) {
+for ß in stride(from: 0.0, to: 360.0, by: 60.0) {
    let tx = solarOrbit(ß)
    trans.append(tx)
 }
@@ -247,9 +247,9 @@ let earth   = Point2D(x: 50.0, y: 50.0)
 let mercury = Point2D(x: 70.0, y: 75.0)
 var planetOrbits   = [String : Point2D]()
 
-for (idx,f) in trans.enumerate() {
-   planetOrbits["e\(idx)"] = f(earth)
-   planetOrbits["m\(idx)"] = f(mercury)
+for (idx,f) in trans.enumerated() {
+   planetOrbits["e\(idx)"] = f(x: earth.x, y: earth.y)
+   planetOrbits["m\(idx)"] = f(x: mercury.x, y: mercury.y)
 }
 let plot5 = PlotViewWithPoints(planetOrbits)
 
