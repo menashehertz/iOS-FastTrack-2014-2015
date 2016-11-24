@@ -3,10 +3,11 @@
 //: # Enumerated Types
 //:
 //: (c) Nicholas Outram 2016
-//: Version 1.01
+//: Version 1.02
 //: Change Log:
 //: 18-11-2016 Released to iTunes U
-//: 24-11-2016 Improved example on equating enums with assoc. values
+//: 23-11-2016 Improved example on equating enums with assoc. values
+//: 24-11-2016 Added support for iPad - results from the UI were previously not visible. I've added a pop-over table view to show the results. In the global Sources folder, there is now a TableViewController.swift file. ViewController.swift now presents this as a popover (with forced no adaption to sizeclass so it always presents as a popover!).
 //:
 //: Enumerated types are commonly found in other languages. They promote type-safety and readability.
 //: Swift enumerated types are far more powerful than those found in older languages such as C. For certain use-cases they can be a natural replacment for a class or structure. Like structures and unlike classes, enumerated types are also value-types.
