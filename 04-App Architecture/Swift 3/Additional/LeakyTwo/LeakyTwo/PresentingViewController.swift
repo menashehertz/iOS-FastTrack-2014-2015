@@ -22,7 +22,7 @@ class PresentingViewController: UIViewController, PresentedViewControllerProtoco
         // Dispose of any resources that can be recreated.
     }
     
-    func dismiss(withResult : String?) -> Void {
+    func dismiss(_ withResult : String?) -> Void {
         self.dismiss(animated: true) {
             if let resStr = withResult {
                 self.resultLabel.text = resStr
@@ -30,9 +30,9 @@ class PresentingViewController: UIViewController, PresentedViewControllerProtoco
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        guard let dvc = segue.destinationViewController as? PresentedViewController else { return }
+        guard let dvc = segue.destination as? PresentedViewController else { return }
         
         if segue.identifier != "NUMBER" {
             return

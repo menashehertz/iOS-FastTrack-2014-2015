@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PresentedViewControllerProtocol : class {
-    func dismiss(withResult : String?) -> Void
+    func dismiss(_ withResult : String?) -> Void
 }
 class PresentedViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
@@ -19,13 +19,13 @@ class PresentedViewController: UIViewController {
     var val : Float = 50.0 {
         didSet {
             if let update = self.updateUI {
-                update(newVal: val)
+                update(val)
             }
         }
     }
     
     //Closure that updates the UI when the val changes
-    var updateUI : ((newVal : Float) -> Void)?
+    var updateUI : ((_ newVal : Float) -> Void)?
     
     //Callback closure
     weak var delegate : PresentedViewControllerProtocol?
@@ -71,13 +71,13 @@ class PresentedViewController: UIViewController {
     
     @IBAction func doSave(_ sender: AnyObject) {
         //Send result back to presenting view controller
-        self.delegate?.dismiss(withResult: String(format: "%3.0f", self.val))
+        self.delegate?.dismiss(String(format: "%3.0f", self.val))
     }
     
     
     @IBAction func doCancel(_ sender: AnyObject) {
         //Send nil back to presenting view controller
-        self.delegate?.dismiss(withResult: nil)
+        self.delegate?.dismiss(nil)
     }
     /*
     // MARK: - Navigation

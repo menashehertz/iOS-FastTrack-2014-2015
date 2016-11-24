@@ -12,30 +12,11 @@
 		07D2F2E81D2FDC1500BC964B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07D2F2E61D2FDC1500BC964B /* Main.storyboard */; };
 		07D2F2EA1D2FDC1500BC964B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07D2F2E91D2FDC1500BC964B /* Assets.xcassets */; };
 		07D2F2ED1D2FDC1500BC964B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07D2F2EB1D2FDC1500BC964B /* LaunchScreen.storyboard */; };
-		07D2F2F81D2FDC1600BC964B /* LeakyTwoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D2F2F71D2FDC1600BC964B /* LeakyTwoTests.swift */; };
-		07D2F3031D2FDC1600BC964B /* LeakyTwoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D2F3021D2FDC1600BC964B /* LeakyTwoUITests.swift */; };
 		07D2F3111D2FDCB800BC964B /* PresentingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D2F3101D2FDCB800BC964B /* PresentingViewController.swift */; };
 		07D2F3131D2FDCD400BC964B /* PresentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D2F3121D2FDCD400BC964B /* PresentedViewController.swift */; };
 		07D2F3151D2FE56F00BC964B /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D2F3141D2FE56F00BC964B /* InitialViewController.swift */; };
 		07D2F3171D2FFE4800BC964B /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D2F3161D2FFE4800BC964B /* AboutViewController.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		07D2F2F41D2FDC1600BC964B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 07D2F2D71D2FDC1500BC964B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 07D2F2DE1D2FDC1500BC964B;
-			remoteInfo = LeakyTwo;
-		};
-		07D2F2FF1D2FDC1600BC964B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 07D2F2D71D2FDC1500BC964B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 07D2F2DE1D2FDC1500BC964B;
-			remoteInfo = LeakyTwo;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		07D2F2DF1D2FDC1500BC964B /* LeakyTwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeakyTwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,10 +26,8 @@
 		07D2F2E91D2FDC1500BC964B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07D2F2EC1D2FDC1500BC964B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07D2F2EE1D2FDC1500BC964B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		07D2F2F31D2FDC1600BC964B /* LeakyTwoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeakyTwoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07D2F2F71D2FDC1600BC964B /* LeakyTwoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeakyTwoTests.swift; sourceTree = "<group>"; };
 		07D2F2F91D2FDC1600BC964B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		07D2F2FE1D2FDC1600BC964B /* LeakyTwoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeakyTwoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07D2F3021D2FDC1600BC964B /* LeakyTwoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeakyTwoUITests.swift; sourceTree = "<group>"; };
 		07D2F3041D2FDC1600BC964B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07D2F3101D2FDCB800BC964B /* PresentingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentingViewController.swift; sourceTree = "<group>"; };
@@ -59,20 +38,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		07D2F2DC1D2FDC1500BC964B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		07D2F2F01D2FDC1600BC964B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		07D2F2FB1D2FDC1600BC964B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -96,8 +61,6 @@
 			isa = PBXGroup;
 			children = (
 				07D2F2DF1D2FDC1500BC964B /* LeakyTwo.app */,
-				07D2F2F31D2FDC1600BC964B /* LeakyTwoTests.xctest */,
-				07D2F2FE1D2FDC1600BC964B /* LeakyTwoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,42 +120,6 @@
 			productReference = 07D2F2DF1D2FDC1500BC964B /* LeakyTwo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		07D2F2F21D2FDC1600BC964B /* LeakyTwoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 07D2F30A1D2FDC1600BC964B /* Build configuration list for PBXNativeTarget "LeakyTwoTests" */;
-			buildPhases = (
-				07D2F2EF1D2FDC1600BC964B /* Sources */,
-				07D2F2F01D2FDC1600BC964B /* Frameworks */,
-				07D2F2F11D2FDC1600BC964B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				07D2F2F51D2FDC1600BC964B /* PBXTargetDependency */,
-			);
-			name = LeakyTwoTests;
-			productName = LeakyTwoTests;
-			productReference = 07D2F2F31D2FDC1600BC964B /* LeakyTwoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		07D2F2FD1D2FDC1600BC964B /* LeakyTwoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 07D2F30D1D2FDC1600BC964B /* Build configuration list for PBXNativeTarget "LeakyTwoUITests" */;
-			buildPhases = (
-				07D2F2FA1D2FDC1600BC964B /* Sources */,
-				07D2F2FB1D2FDC1600BC964B /* Frameworks */,
-				07D2F2FC1D2FDC1600BC964B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				07D2F3001D2FDC1600BC964B /* PBXTargetDependency */,
-			);
-			name = LeakyTwoUITests;
-			productName = LeakyTwoUITests;
-			productReference = 07D2F2FE1D2FDC1600BC964B /* LeakyTwoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -200,28 +127,15 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Nicholas Outram";
 				TargetAttributes = {
 					07D2F2DE1D2FDC1500BC964B = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = A5RDWYM8E9;
 						DevelopmentTeamName = "University of Plymouth Enterprise Ltd";
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
-					};
-					07D2F2F21D2FDC1600BC964B = {
-						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = A5RDWYM8E9;
-						DevelopmentTeamName = "University of Plymouth Enterprise Ltd";
-						ProvisioningStyle = Automatic;
-						TestTargetID = 07D2F2DE1D2FDC1500BC964B;
-					};
-					07D2F2FD1D2FDC1600BC964B = {
-						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = A5RDWYM8E9;
-						DevelopmentTeamName = "University of Plymouth Enterprise Ltd";
-						ProvisioningStyle = Automatic;
-						TestTargetID = 07D2F2DE1D2FDC1500BC964B;
 					};
 				};
 			};
@@ -239,8 +153,6 @@
 			projectRoot = "";
 			targets = (
 				07D2F2DE1D2FDC1500BC964B /* LeakyTwo */,
-				07D2F2F21D2FDC1600BC964B /* LeakyTwoTests */,
-				07D2F2FD1D2FDC1600BC964B /* LeakyTwoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -253,20 +165,6 @@
 				07D2F2ED1D2FDC1500BC964B /* LaunchScreen.storyboard in Resources */,
 				07D2F2EA1D2FDC1500BC964B /* Assets.xcassets in Resources */,
 				07D2F2E81D2FDC1500BC964B /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		07D2F2F11D2FDC1600BC964B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		07D2F2FC1D2FDC1600BC964B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,36 +184,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		07D2F2EF1D2FDC1600BC964B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				07D2F2F81D2FDC1600BC964B /* LeakyTwoTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		07D2F2FA1D2FDC1600BC964B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				07D2F3031D2FDC1600BC964B /* LeakyTwoUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		07D2F2F51D2FDC1600BC964B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 07D2F2DE1D2FDC1500BC964B /* LeakyTwo */;
-			targetProxy = 07D2F2F41D2FDC1600BC964B /* PBXContainerItemProxy */;
-		};
-		07D2F3001D2FDC1600BC964B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 07D2F2DE1D2FDC1500BC964B /* LeakyTwo */;
-			targetProxy = 07D2F2FF1D2FDC1600BC964B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		07D2F2E61D2FDC1500BC964B /* Main.storyboard */ = {
@@ -352,8 +221,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -375,7 +246,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -400,8 +271,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -417,7 +290,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -450,56 +323,6 @@
 			};
 			name = Release;
 		};
-		07D2F30B1D2FDC1600BC964B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = LeakyTwoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.plymouth.LeakyTwoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeakyTwo.app/LeakyTwo";
-			};
-			name = Debug;
-		};
-		07D2F30C1D2FDC1600BC964B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = LeakyTwoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.plymouth.LeakyTwoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LeakyTwo.app/LeakyTwo";
-			};
-			name = Release;
-		};
-		07D2F30E1D2FDC1600BC964B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = LeakyTwoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.plymouth.LeakyTwoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = LeakyTwo;
-			};
-			name = Debug;
-		};
-		07D2F30F1D2FDC1600BC964B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = LeakyTwoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.plymouth.LeakyTwoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = LeakyTwo;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -519,22 +342,7 @@
 				07D2F3091D2FDC1600BC964B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		07D2F30A1D2FDC1600BC964B /* Build configuration list for PBXNativeTarget "LeakyTwoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				07D2F30B1D2FDC1600BC964B /* Debug */,
-				07D2F30C1D2FDC1600BC964B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
-		07D2F30D1D2FDC1600BC964B /* Build configuration list for PBXNativeTarget "LeakyTwoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				07D2F30E1D2FDC1600BC964B /* Debug */,
-				07D2F30F1D2FDC1600BC964B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
