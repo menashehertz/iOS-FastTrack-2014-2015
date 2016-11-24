@@ -29,10 +29,10 @@ func cuboidVolumeWithWidth(width:Double, height:Double, depth:Double) -> Double 
 //: Note the following:
 //:   * The first parameter label is embedded in the function name
 //:   * The remain parameters are automatically labelled (same as the intenal names)
-let V2 = cuboidVolumeWithWidth(2.0, height: 3.0, depth: 10.0)
+let V2 = cuboidVolume(width: 2.0, height: 3.0, depth: 10.0)
 
 //: ### Example - no external parameter names
-func cuboidVolumeWHD(width:Double, _ height:Double, _ depth:Double) -> Double {
+func cuboidVolumeWHD(_ width:Double, _ height:Double, _ depth:Double) -> Double {
    return width * height * depth
 }
 
@@ -41,7 +41,7 @@ let V3 = cuboidVolumeWHD(2.0, 3.0, 10.0)
 
 
 //: Single parameter example where an external label is not required
-func piAsStringWithPrecision(decimalPlaces : Int) -> String {
+func piAsStringWithPrecision(_ decimalPlaces : Int) -> String {
    let p = Double(M_PI)
    let formatString = "%." + String(decimalPlaces) + "f"
    return String(format: formatString, p)
@@ -53,7 +53,7 @@ piAsStringWithPrecision(2)
 //: ## Review 1
 
 //: ### Review 1a - no external parameter names
-func force1a(mass : Double, _ acceleration : Double) -> Double {
+func force1a(_ mass : Double, _ acceleration : Double) -> Double {
    return mass * acceleration
 }
 //: I don't like this style. Although the mathematical ordering does not matter in this case, that may not clear to the developer invoking this method
@@ -73,7 +73,7 @@ func force1b_alt(mass m : Double, acceleration : Double) -> Double {
 }
 let f1b_alt = force1b(mass: 10.0, acceleration: 2.0)
 //: ### Review 1c - parameter 1 in the name, external parameter name for second
-func forceForMass(m : Double, withAcceleration a: Double) -> Double {
+func forceForMass(_ m : Double, withAcceleration a: Double) -> Double {
    return m * a
 }
 let f1c = forceForMass(10.0, withAcceleration: 2.0)
@@ -86,10 +86,10 @@ let f1c = forceForMass(10.0, withAcceleration: 2.0)
 //: Note the use of empty parenthesis - no mention of "void" etc.
 func timeNow(_: Void) -> String {
    
-    let date = NSDate()
-    let fmt = NSDateFormatter()
+    let date = Date()
+    let fmt = DateFormatter()
     fmt.dateFormat = "h:mm a"
-    let desc = fmt.stringFromDate(date)
+    let desc = fmt.string(from: date)
     
     return desc
 }
@@ -106,14 +106,14 @@ func displayTimeWithFormat(formatString : String) {
     if (formatString.isEmpty) {
         return
     }
-    let date = NSDate()
-    let fmt = NSDateFormatter()
+    let date = Date()
+    let fmt = DateFormatter()
     fmt.dateFormat = formatString
-    let desc = fmt.stringFromDate(date)
+    let desc = fmt.string(from: date)
     print("\(desc)", terminator:"")
 }
 
-displayTimeWithFormat("d MMMM YYYY")
+displayTimeWithFormat(formatString: "d MMMM YYYY")
 
 
 

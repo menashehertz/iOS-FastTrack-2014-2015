@@ -20,7 +20,7 @@ import XCPlayground
 //: To make the code much easier to follow, it is common to define type alias. `Point2D` is a Tulpe where as `Transform2D` is a function. Remember, don't think of functions as a simply function pointer (esp. you C programmers out there!). Think of it more as an object, where the data are 'captured' and copied or referenced within, and where the functions can operate on that data. You might say it's rather like an instance of a class.
 
 typealias Point2D = (x: Double, y: Double)  //2D point in a Tuple
-typealias Transform2D = Point2D -> Point2D  //Function type
+typealias Transform2D = (Point2D) -> Point2D  //Function type
 
 //: ## Create transforms
 //: These are functions that return other (nested) functions. A few key points here:
@@ -33,8 +33,8 @@ typealias Transform2D = Point2D -> Point2D  //Function type
 //: As the `offset` parameter is not mutated outside the nested function, then a copy is said to be captured.
 //: Note that *it is the nested **function** that is returned*. This function takes a 2D Point as a parameter and returns a new point. It uses the *captured* `offset` to perform the calculation.
 
-func translate(offset: Point2D) -> Transform2D {
-   func tx(point: Point2D) -> Point2D {
+func translate(_ offset: Point2D) -> Transform2D {
+   func tx(_ point: Point2D) -> Point2D {
       //Capture offset
       let off = offset
       //Calculate and return new point
@@ -52,9 +52,9 @@ func translate(offset: Point2D) -> Transform2D {
 //:
 //: Again, the nested function captures a copy of the scaling factor provided by the enslosing scope.
 
-func scaleTransform(scale: Double) -> Transform2D {
+func scaleTransform(_ scale: Double) -> Transform2D {
    
-   func tx(point: Point2D) -> Point2D {
+   func tx(_ point: Point2D) -> Point2D {
       let s = scale
       return (x: point.x * s, y: point.y * s)
    }
@@ -71,14 +71,14 @@ func scaleTransform(scale: Double) -> Transform2D {
 //: * I've chosen to precalculate cos and sin functions needed for rotations. I've done this as I plan to apply this function multiple times and don't want to keep recalculating them.
 //: * Is `cos_ø` and `sin_ø` that are captured by the nested function and returned.
 
-func rotate(angleInDegrees: Double) -> Transform2D {
+func rotate(_ angleInDegrees: Double) -> Transform2D {
    let π = M_PI
    let radians = π * angleInDegrees / 180.0
    let cos_ø = cos(radians)
    let sin_ø = sin(radians)
    
    // The transform is a rotation
-   func rotate (point : Point2D) -> Point2D {
+   func rotate (_ point : Point2D) -> Point2D {
       //cos_ø and sin_ø are 'captured' inside this closure
       let newX =  cos_ø * point.x + sin_ø * point.y
       let newY = -sin_ø * point.x + cos_ø * point.y
@@ -96,7 +96,7 @@ func rotate(angleInDegrees: Double) -> Transform2D {
 //:
 //: Used later in the advanced task.
 //:
-func negate(p: Point2D) -> Point2D {
+func negate(_ p: Point2D) -> Point2D {
    let minus_p = (x: -p.x, y: -p.y)
    return minus_p
 }
@@ -110,8 +110,8 @@ func negate(p: Point2D) -> Point2D {
 //:
 //: Where two functions are to be applied, one to the output of the other, then we can create a higher-order function to perform this for us.
 //:
-func composeTransform(f1: Transform2D, _ f2: Transform2D) -> Transform2D {
-   func tx(point: Point2D) -> Point2D {
+func composeTransform(_ f1: Transform2D, _ f2: Transform2D) -> Transform2D {
+   func tx(_ point: Point2D) -> Point2D {
       return f2(f1(point))
    }
    return tx
@@ -122,7 +122,7 @@ func composeTransform(f1: Transform2D, _ f2: Transform2D) -> Transform2D {
 
 infix operator |-> { associativity left }
 func |-> (f1: Transform2D, f2: Transform2D) -> Transform2D {
-   func tx(point: Point2D) -> Point2D {
+   func tx(_ point: Point2D) -> Point2D {
       return f2(f1(point))
    }
    return tx
@@ -155,8 +155,8 @@ let points1 = ["A" : p1, "B" : p2, "C" : p3, "D" : p4]
 
 //: Plot each point on a 2D graph
 //Wrapper function around PlotView initialiser
-let f = CGRectMake(0.0, 0.0, 400.0, 400.0) //Common to all
-func PlotViewWithPoints(p : [String : Point2D]) -> UIView {
+let f = CGRect(x: 0.0, y: 0.0, width: 400.0, height: 400.0) //Common to all
+func PlotViewWithPoints(_ p : [String : Point2D]) -> UIView {
    return PlotView(frame: f, points: p)    //Capture f
 }
 let plot1 = PlotViewWithPoints(points1)
@@ -199,9 +199,9 @@ let plot3 = PlotViewWithPoints(points3)
 //: Both the centre and angle of rotation need to be provided and captured
 
 //: This version uses Currying so that only one parameter is ever passed
-func orbit(center center : Point2D) -> (Double -> Transform2D) {
+func orbit(_ center : Point2D) -> ((Double) -> Transform2D) {
    let minusCenter = negate(center)
-   func R(angle : Double) -> Transform2D {
+   func R(_ angle : Double) -> Transform2D {
       let tx = translate(minusCenter) |-> rotate(angle) |-> translate(center)
       return tx
    }
@@ -209,14 +209,14 @@ func orbit(center center : Point2D) -> (Double -> Transform2D) {
 }
 
 //: So does this version, but it uses the alternative syntax and is easier to read
-func orbit_nicecurry(center center : Point2D)(angle: Double) -> Transform2D {
+func orbit_nicecurry(_ center : Point2D, _ angle: Double) -> Transform2D {
    let minusCenter = negate(center)
    let tx = translate(minusCenter) |-> rotate(angle) |-> translate(center)
    return tx
 }
 
 //: This version is not curried - which is ok as well if you don't want partial evaluation
-func orbit_notcurried(center center : Point2D, angle: Double) -> Transform2D {
+func orbit_notcurried(_ center : Point2D, angle: Double) -> Transform2D {
    let minusCenter = negate(center)
    let tx = translate(minusCenter) |-> rotate(angle) |-> translate(center)
    return tx

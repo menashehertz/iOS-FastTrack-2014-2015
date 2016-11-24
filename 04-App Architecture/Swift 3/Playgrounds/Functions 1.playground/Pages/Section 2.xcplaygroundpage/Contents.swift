@@ -1,6 +1,6 @@
 //: [Previous](@previous)
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 //: ![Functions 1 - Programming Examples](Banner.jpg)
 
 //: ## Parameter and Return Types
@@ -47,20 +47,19 @@ theDateLabelled.month
 
 func currentDate() -> (day:Int, month:String, year:Int)
 {
-   let date = NSDate() //Now
+   let date = Date() //Now
    
    //Get month as a string
-   let fmt = NSDateFormatter()
+   let fmt = DateFormatter()
    fmt.dateFormat = "MMMM"
-   let monthString = fmt.stringFromDate(date)
+   let monthString = fmt.string(from: date)
    
    //I am *very* confident the following will not return nil
-   let cal : NSCalendar! =
-   NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+   let cal : Calendar! = Calendar(identifier: Calendar.Identifier.gregorian)
    
    //Extract the day and year as Int values
-   let d  = cal.component(NSCalendarUnit.Day, fromDate: date)
-   let y  = cal.component(NSCalendarUnit.Year, fromDate: date)
+   let d  = cal.component(.day, from: date)
+   let y  = cal.component(.year, from: date)
    
    //Return result as 3-tuple
    return (day:d, month:monthString, year:y)
@@ -81,7 +80,7 @@ print("The day is \(dmy.day)")
 //: ### Using Optionals to indicate failure
 func firstCommaPosInString(inputString : String) -> Int?
 {
-   for (idx, character) in inputString.characters.enumerate() {
+   for (idx, character) in inputString.characters.enumerated() {
       if character == "," {
          return idx
       }
@@ -90,16 +89,16 @@ func firstCommaPosInString(inputString : String) -> Int?
 }
 
 //: This example is successful, and returns the location of the first comma
-if let pos = firstCommaPosInString("Fred,Roger,John and Brian") {
+if let pos = firstCommaPosInString(inputString: "Fred,Roger,John and Brian") {
    print("Found a comma at position \(pos)")
 }
 //: This example is not successful, and returns nil
-if let pos = firstCommaPosInString("Fred. Roger. John. Brian.") {
+if let pos = firstCommaPosInString(inputString: "Fred. Roger. John. Brian.") {
    print("Found a comma at position \(pos)")
 }
 
 //: ### Default values
-func normalise(x x:Double, y:Double, scale:Double=1.0) -> (x:Double,y:Double)?
+func normalise(x:Double, y:Double, scale:Double=1.0) -> (x:Double,y:Double)?
 {
    let magnitude = sqrt(x*x + y*y) / scale
    if magnitude < 1.0e-12 {
@@ -118,7 +117,7 @@ if let vec = normalise(x: 2.0, y: 3.0) {
 }
 
 //: ### Optional Parameters
-func message(name name : String, title : String?) -> String {
+func message(name : String, title : String?) -> String {
    var message = "Greetings "
    
    if let t = title {
@@ -135,8 +134,9 @@ message(name: "Bones", title: nil)
 //: ### Variable Parameters
 //: To save creating another local variable, you can make a parameter a variable.
 //: Note - the parameter is *an independent copy*, not a referene to the original
-func mac(var accumulator: Double, _ x : Double, _ y : Double) -> Double {
+func mac(_ accumulator: Double, _ x : Double, _ y : Double) -> Double {
    //accumulator is a copy - not the original
+   var accumulator = accumulator
    accumulator += x*y
    return accumulator
 }
@@ -148,7 +148,7 @@ a = mac(a, 5.0, 2.0)
 
 
 //: ### inout parameters
-func mac2(inout accumulator: Double, _ x : Double, _ y : Double) {
+func mac2(_ accumulator: inout Double, _ x : Double, _ y : Double) {
    accumulator += x*y
 }
 a = 0.0
@@ -167,9 +167,9 @@ func recipe(title t: String, ingredients: String...) -> String {
 }
 
 let page = recipe(title: "Perfect Breakfast", ingredients: "Cold Pizza", "Meat-balls", "Biriani")
-let wv = UIWebView(frame: CGRectMake(0,0,200,200))
+let wv = UIWebView(frame: CGRect(x: 0, y: 0,width: 200, height:200))
 wv.loadHTMLString(page, baseURL: nil)
 //: To see the output of this, uncomment the next line and turn on the Assistant View
-//XCPlaygroundPage.currentPage.liveView = wv
+//PlaygroundPage.current.liveView = wv
 
 

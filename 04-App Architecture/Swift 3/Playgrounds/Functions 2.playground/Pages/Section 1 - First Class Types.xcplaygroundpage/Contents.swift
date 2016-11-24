@@ -28,7 +28,7 @@ func divide(numerator n : Int, denominator d: Int) -> Double? {
 }
 
 //: Like any other type, we can declare and define variables and constants with function types. Here for example, is an explicitely typed constant of type `(Int,Int)->Double?`
-let mathFunction : (num: Int, den: Int) -> Double?
+let mathFunction : (_ num: Int, _ den: Int) -> Double?
 
 //: Again, like any other type, we can simply assign this constant to an object of the same type. Here it is assigned to the divide function.
 mathFunction = divide
@@ -36,7 +36,7 @@ mathFunction = divide
 //: We can invoke the function using the newly assigned constant
 for n in 1...4 {
     for m in n...4 {
-        if let y = mathFunction(num: n, den: m) {
+        if let y = mathFunction(n, m) {
             print("\(n) / \(m) = \(y) ")
         }
     }
@@ -64,20 +64,20 @@ typealias Point2D = (x: Double, y: Double)    //Type Point is a tuple (with labe
 //: Now I write some functions for different distance metrics, measuring the distance of a 2D point from the origin (0,0). Don't worry if you don't understand the maths. What is important here is I've writing two functions that take the same type of parameters and return the same type. Both a measures of line length essentially.
 
 //Euclidean Distance (based on Pythagoras theorem) from the origin (0,0)
-func euclidean(p : Point2D) -> Double {
+func euclidean(_ p : Point2D) -> Double {
     return sqrt(p.x*p.x + p.y*p.y)
 }
 
 //Maximum distance from the origin (0,0)
-func maxAbsolute(p : Point2D) -> Double {
+func maxAbsolute(_ p : Point2D) -> Double {
     return max(fabs(p.x) , fabs(p.y))
 }
 
 //: Now I create another new type "DistanceMetric". This is a *function type*, that takes a point argument and returns a Double. By default this would be the distance from the origin (0,0).
-typealias DistanceMetric = Point2D -> Double
+typealias DistanceMetric = (Point2D) -> Double
 
 //: The following **higher-order function** calculates the 'distance' *between* two points using a provided DistanceMetric. Note that this function contains the common code for the different methods used. Note the third parameter is a function. It returns a Double, which represents the distance between the points p1 and p2
-func distanceBetweenPoint(p1 : Point2D,  andPoint p2 : Point2D, usingMetric metric : DistanceMetric) -> Double {
+func distanceBetweenPoint(_ p1 : Point2D,  andPoint p2 : Point2D, usingMetric metric : DistanceMetric) -> Double {
     
     //The following three lines are common to many distance measures
     let dx = p1.x - p2.x        //Difference between x coordinates
@@ -111,11 +111,11 @@ distanceBetweenPoint(p1, andPoint: p2, usingMetric: maxAbsolute)
 let arrayOfNumbers = [1, 15, -5, 10, 22]
 
 //: Calculate the mean ( *don't worry if you don't understand this code* )
-let mean = arrayOfNumbers.reduce(0, combine: + )            //Sum all elements in the array
+let mean = arrayOfNumbers.reduce(0, + )            //Sum all elements in the array
 let fMean = Double(mean) / Double(arrayOfNumbers.count)     //Divide to obtain arithmetic mean
 
 //: Function to return **true** if `a` is closer to the mean than `b`
-func nearestToMean(a : Int, _ b : Int) -> Bool {
+func nearestToMean(_ a : Int, _ b : Int) -> Bool {
     let da = fabs(Double(a)-fMean)
     let db = fabs(Double(b)-fMean)
     return da < db
@@ -125,17 +125,17 @@ func nearestToMean(a : Int, _ b : Int) -> Bool {
 nearestToMean(9, 20)
 
 //: Now sort using this critera. There are two methods: sort (in place) and sorted (returns a sorted array)
-let sortedArray = arrayOfNumbers.sort(nearestToMean)
+let sortedArray = arrayOfNumbers.sorted(by: nearestToMean)
 
 //Display in assistant-editor timeline
 for n in sortedArray {
-   XCPlaygroundPage.currentPage.captureValue(n, withIdentifier: "Plot")
+   XCPlaygroundPage.currentPage.captureValue(value: n, withIdentifier: "Plot")
 }
 
 //: ### Example - `map`
 //: The standard library higher-order function `map` applies a function to all elements of a collection. In this simple example, I determine if an element is *even* (true) or *odd* (false)
 
-func isEven(val : Int) -> Bool {
+func isEven(_ val : Int) -> Bool {
     return (val % 2) == 0
 }
 
@@ -144,7 +144,7 @@ let evens = arrayOfNumbers.map(isEven)
 //: ### Example - `filter`
 //: The standard library higher-order function `filter` applies a function to all elements of a collection to test if that element should be retained in the result. In this simple example, I determine if an element is positive or zero.
 
-func isNatural(val : Int) -> Bool {
+func isNatural(_ val : Int) -> Bool {
     return val >= 0
 }
 
@@ -161,11 +161,11 @@ let positives = arrayOfNumbers.filter(isNatural)
 //: Paramember `b` is the next value from the array
 //: In effect, this will result in `a = a + b`
 //:
-func f1(a : Int, _ b : Int) -> Int {
+func f1(_ a : Int, _ b : Int) -> Int {
     return a+b
 }
 
-let sumOfAllElements = arrayOfNumbers.reduce(0, combine: f1)
+let sumOfAllElements = arrayOfNumbers.reduce(0, f1)
 //: Initial value s = 0
 //:
 //: The for each element `x[n]` of the array, where `n` is the index, then `s = f1(s,x[n]) = s + x[n]`
@@ -175,7 +175,7 @@ let sumOfAllElements = arrayOfNumbers.reduce(0, combine: f1)
 //: ### Prefix operators
 prefix operator ∑ { }
 prefix func ∑ (u : [Double]) -> Double {
-   return u.reduce(0.0, combine: +) //Sum all elements
+   return u.reduce(0.0, +) //Sum all elements
 }
 
 let vec = [1.0, 3.0, 6.0]
@@ -207,10 +207,11 @@ func --(left : Double, right : Double) -> Double {
    return (left - right)
 }
 
-3 -- 2 -- 1
+(3 -- 2) -- 1
 
 //: Now, let's compare with a right-associative function
 infix operator --- { associativity right precedence 140 } //Same precedence as +
+
 func ---(left : Double, right : Double) -> Double {
    return (left - right)
 }
@@ -237,13 +238,13 @@ func ** (a : Double, b: Double) -> Double {
 //: To start with, these are very useful for reducing or avoiding local code repetition. They can also help make code more expressive and easy to follow. In this example, a use a technique common in functional programming, and that is to make the function recursive. I also use the function parameters to keep track of state (note there are no variables in this function, only constants).
 
 
-func oddParity(val : UInt, isOddParity : Bool = false) -> Bool {
+func oddParity(_ val : UInt, isOddParity : Bool = false) -> Bool {
     
-    func xor(a : Bool, _ b : Bool) -> Bool {
+    func xor(_ a : Bool, _ b : Bool) -> Bool {
         return (a && !b) || (!a && b)
     }
     
-    func lsbIsOne(u : UInt) -> Bool {
+    func lsbIsOne(_ u : UInt) -> Bool {
         return ( (u & 1) != 0 )
     }
     
@@ -268,7 +269,7 @@ oddParity(7)
 //: Therefore the nested function does not need any parameters in this case.
 //: I like using functions in this way as it is almost self documenting
 
-func oddParityV2(val : UInt, isOddParity : Bool = false) -> Bool {
+func oddParityV2(_ val : UInt, isOddParity : Bool = false) -> Bool {
 
     if val == 0 {
         return isOddParity
@@ -297,13 +298,13 @@ oddParityV2(7)
 
 //: ### Capturing arguments and local variables
 
-typealias DoubleTransformFunction = Double -> Double
+typealias DoubleTransformFunction = (Double) -> Double
 
-func generateAccumulatorWithInitialValue(u : Double) -> DoubleTransformFunction {
+func generateAccumulatorWithInitialValue(_ u : Double) -> DoubleTransformFunction {
     var acc = u
     
     //Nested function
-    func f(value : Double) -> Double {
+    func f(_ value : Double) -> Double {
         //Makes reference to acc, so this is *captured* (and copied) as part of the closure
         //It will persist as long as this nested function perists
         acc += value
@@ -326,13 +327,13 @@ let y = accFunc(8.0)
 //: Any function with N paramaters can be broken down into N functions with 1 parameter. 
 //: This follows a process of "capture and return".
 
-typealias IntTx = Int -> Int    //Function that takes and Int parameter, and returns an Int
+typealias IntTx = (Int) -> Int    //Function that takes and Int parameter, and returns an Int
 
 //: Outer function provides the first argument - this is captured by the next level of nesting
-func addInt( num1 : Int) ->  IntTx {
+func addInt( _ num1 : Int) ->  IntTx {
     
 //: Inner function *captures* the first parameter, and accepts a second
-    func addNext( num2 : Int ) -> Int {
+    func addNext( _ num2 : Int ) -> Int {
         //Capture outer argument num1
         return num1 + num2
     }
@@ -357,19 +358,19 @@ arrayOfInt.map(tx)
 //: Looking at the result, each element has 100 added to it.
 
 //: ### Example v1 - Convert a 3 input function to 3x1 Input
-func F(m:Double, x:Double, c:Double) -> Double {
+func F(_ m:Double, x:Double, c:Double) -> Double {
     return m*x+c
 }
 
 //: It helps to create typealias of the function types
-typealias T1 = Double -> Double //Function, Double in, Double Out
-typealias T2 = Double -> T1     //Function, Double in, Function Out
+typealias T1 = (Double) -> Double //Function, Double in, Double Out
+typealias T2 = (Double) -> T1     //Function, Double in, Function Out
 
 //: Curried form of F
-func f1(m : Double) -> T2 {
-    func f2(x : Double) -> T1 {
+func f1(_ m : Double) -> T2 {
+    func f2(_ x : Double) -> T1 {
         let prod = m*x
-        func f3(c : Double) -> Double {
+        func f3(_ c : Double) -> Double {
             return prod+c
         }
         return f3
@@ -384,23 +385,23 @@ F(2)
 F(3)
 
 //: ### Example v2 - Convert a 3 input function to 3x1 Input
-func ff(m : Double)(x : Double)(c : Double) -> Double {
+func ff(_ m : Double, _ x : Double, _ c : Double) -> Double {
     return m*x + c
 }
 
-let FF = ff(2.0)(x: 4.0)
+let FF = ff(2.0)(4.0)
 FF(c: 2.0)
 
 //: ### Example v3 - Convert a 3 input function to 3x1 Input
-func fff(m : Double)(x : Double) -> (Double -> Double) {
+func fff(_ m : Double, _ x : Double) -> ((Double) -> Double) {
     let prod = m*x
-    func fff2(c : Double) -> Double {
+    func fff2(_ c : Double) -> Double {
         return prod + c
     }
     return fff2
 }
 
-let FFF = fff(2.0)(x: 4.0)
+let FFF = fff(2.0)(4.0)
 FFF(2.0)
 
 
