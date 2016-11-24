@@ -24,11 +24,11 @@ class ViewController: UIViewController, ModalViewController1Protocol {
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "DEMO1" {
             
-            if let vc = segue.destinationViewController as? ModalViewController1 {
+            if let vc = segue.destination as? ModalViewController1 {
                 
                 vc.titleText = "DEMO 1"
                 vc.delegate = self
@@ -39,8 +39,8 @@ class ViewController: UIViewController, ModalViewController1Protocol {
     }
     
     //Call back
-    func dismissWithStringData(str: String) {
-      self.dismissViewControllerAnimated(true) {
+    func dismissWithStringData(_ str: String) {
+      self.dismiss(animated: true) {
          self.resultLabel.text = str
       }
     }
